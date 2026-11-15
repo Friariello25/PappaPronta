@@ -320,8 +320,8 @@ nav button span{display:flex;align-items:center;justify-content:center;height:24
     <div class="card fcard">
       <div class="pills" id="fTabs"><button class="pill on" data-k="s">🔎 Posso mangiarlo?</button><button class="pill" data-k="m">🍽 Cosa ho mangiato?</button></div>
       <div id="fBoxS">
-        <div class="sbar"><input type="search" id="fq" placeholder="Posso mangiarlo?" autocomplete="off"><button class="sbi" id="fqBc" type="button" aria-label="Scansiona il codice a barre" title="Scansiona il codice a barre">📦</button><label class="sbi" for="fsGal" title="Foto della tabella nutrizionale" aria-label="Foto della tabella nutrizionale">📷</label><input type="file" id="fsGal" accept="image/*" style="position:absolute;opacity:0;width:1px;height:1px"></div>
-        <div class="sbh">📦 codice a barre · 📷 foto della tabella nutrizionale</div>
+        <div class="sbar"><input type="search" id="fq" placeholder="Posso mangiarlo?" autocomplete="off"><button class="sbi" id="fqBc" type="button" aria-label="Scansiona il codice a barre" title="Scansiona il codice a barre">📦</button><label class="sbi" for="fsCam" title="Scatta la tabella nutrizionale" aria-label="Scatta la tabella nutrizionale">📷</label><label class="sbi" for="fsGal" title="Scegli dalla galleria" aria-label="Scegli dalla galleria">🖼️</label><input type="file" id="fsCam" accept="image/*" capture="environment" style="position:absolute;opacity:0;width:1px;height:1px"><input type="file" id="fsGal" accept="image/*" style="position:absolute;opacity:0;width:1px;height:1px"></div>
+        <div class="sbh">📦 codice a barre · 📷 scatta tabella · 🖼️ galleria</div>
         <div class="pills" id="fEx" style="margin-top:10px"><button class="pill">banana</button><button class="pill">cachi</button><button class="pill">parmigiano</button><button class="pill">pane</button><button class="pill">uova</button></div>
         <div id="fOut" style="margin-top:12px"><div class="sub">Scrivi un alimento (es. banana, cachi, parmigiano) e ti dico se va bene.</div></div>
         <div class="mrow" id="goMeal"><span>🍽 Cosa ho mangiato oggi?</span><b>›</b></div>
@@ -2698,7 +2698,7 @@ $('#nfMine').addEventListener('click',function(e){
   cplExtra=cplExtra.filter(function(x){return x!==o.n.toLowerCase()});renderNfMine();toast('Alimento tolto');
 });
 function fromSearch(e){var f=e.target.files[0];e.target.value='';if(!f)return;openNf($('#fq').value.trim(),'search');openCrop(f,'tab',true)}
-$('#fsGal').addEventListener('change',fromSearch);
+$('#fsCam').addEventListener('change',fromSearch);$('#fsGal').addEventListener('change',fromSearch);
 $('#nfCam').addEventListener('change',function(e){var f=e.target.files[0];if(f)openCrop(f,'tab',true);e.target.value=''});
 $('#nfIngCam').addEventListener('change',function(e){var f=e.target.files[0];if(f)openCrop(f,'ing',true);e.target.value=''});
 $('#nfSim').addEventListener('change',function(){
