@@ -305,6 +305,20 @@ nav button span{display:flex;align-items:center;justify-content:center;height:24
 .lt{display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:900;line-height:1}
 .lt.g:after{content:"\2713"}.lt.y:after{content:"!"}.lt.r:after{content:"\2715"}
 
+.chip .why{display:inline-block;text-decoration:none;margin-left:6px;padding:1px 7px;border-radius:999px;background:#fdecea;color:#b3261e;font-size:11px;font-weight:700;opacity:1}
+.chip.avoid{opacity:1}.chip.avoid>*:not(.why){opacity:.55}
+.chip.avoid{text-decoration:none}.chip.avoid .nm{text-decoration:line-through}
+
+.nw{margin:6px 0 10px}.nmx{display:flex;gap:6px;margin:6px 0}.nmx div{flex:1;background:var(--gl);border-radius:11px;padding:7px 3px;text-align:center;font-size:11px;color:var(--mut)}.nmx b{display:block;font-size:16px;color:var(--ink,#1f2d27)}
+.nsm{font-size:12px;color:var(--mut);margin:3px 0}.nbar{height:8px;border-radius:6px;background:#e3ece5;overflow:hidden;margin:6px 0 2px}.nbar i{display:block;height:100%;background:#43a047}.nbar i.y{background:#f9a825}.nbar i.r{background:#e53935}
+.nport{display:flex;align-items:center;gap:5px;margin:10px 0 6px;flex-wrap:wrap}.nport span{font-size:12px;font-weight:700;color:var(--mut);margin-right:4px}.pp{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700;color:var(--mut);font-family:inherit}.pp.on{background:var(--g);border-color:var(--g);color:#fff}
+.dl{margin-top:4px}.dr{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #edf2ee}.dr:last-child{border:0}.dn{font-size:14px;flex:1;min-width:0}.dn small{display:block;color:var(--mut);font-size:11px;margin-top:1px}
+.st{display:flex;align-items:center;gap:6px;flex:none}.ds{width:32px;height:32px;border-radius:9px;border:1.5px solid var(--line);background:#fff;font-size:18px;font-weight:800;color:var(--g);font-family:inherit;line-height:1}.dv{min-width:54px;text-align:center;font-weight:800;font-size:14px}.dv.ed{color:#b26a00}
+.dsel{display:block;margin-top:4px;font-size:12px;border:1px solid var(--line);border-radius:8px;padding:3px 6px;background:#fff;max-width:100%}.dreset{margin-top:8px;border:0;background:none;color:var(--g);font-weight:700;font-size:13px;text-decoration:underline;font-family:inherit}
+.dtot{margin-top:6px;padding:7px 10px;background:var(--gl);border-radius:10px;font-size:13px;font-weight:700;color:var(--g)}.dtot small{font-weight:400;color:var(--mut)}
+.nhint{background:#fff8e1;border:1px solid #f4d675;border-radius:10px;padding:7px 9px;font-size:12px;color:#6b4e00;margin:6px 0}
+.dtot.lo{background:#fff8e1;color:#6b4e00}.dtot .dwarn{display:block;font-weight:400;font-size:12px;margin-top:3px}
+
 .lt.n{background:#90a4ae}
 </style>
 </head>
@@ -530,7 +544,10 @@ var ING=[
 ['salmone','Salmone (grasso)','pesce','🍣'],['sgombro','Sgombro (grasso)','pesce','🐟'],['sardine','Sardine (grasso)','pesce','🐟'],
 ['pollo','Petto di pollo','carni','🍗'],['tacchino','Tacchino','carni','🦃'],['coniglio','Coniglio','carni','🐇'],
 ['yogurt','Yogurt bianco magro senza lattosio','latticini','🥛'],['ricotta','Ricotta magra','latticini','🧀'],['latte','Latte scremato senza lattosio','latticini','🥛'],['uova','Uova','latticini','🥚'],
-['passata','Passata di pomodoro','dispensa','🍅'],['te','Tè e tisane','dispensa','🍵']
+['passata','Passata di pomodoro','dispensa','🍅'],['te','Tè e tisane','dispensa','🍵'],
+['quinoa','Quinoa','cereali','🌾'],['polenta','Polenta (farina di mais)','cereali','🌾'],['tofu','Tofu','legumi','🫘'],
+['patate','Patate','verdure','🍠'],['fagiolini','Fagiolini','verdure','🥬'],['peperoni','Peperoni','verdure','🍅'],['cetrioli','Cetrioli','verdure','🥒'],['bietole','Bietole','verdure','🥬'],['cavolo','Cavolo cappuccio','verdure','🥦'],
+['banana','Banane','frutta','🍎'],['sogliola','Sogliola','pesce','🐟'],['manzo','Manzo magro','carni','🍗']
 ];
 var ID={};ING.forEach(function(a){ID[a[0]]={id:a[0],n:a[1],c:a[2],e:a[3]}});
 
@@ -636,7 +653,7 @@ var pantry=new Set(store.get('pantry',[]));
 var custom=store.get('custom',[]).map(function(c){return typeof c==='string'?{n:c,c:'altro'}:c});
 var fav=store.get('fav',[]);
 var IBS=store.get('ibs',true);
-var AV=['cavolfiore','funghi','piselli','fagioli','mele','pere','orzo','farro'];
+var AV=['cavolfiore','funghi','piselli','fagioli','mele','pere','orzo','farro','cavolo'];
 var SPQ={pasta_int:'40 g (a crudo)',lenticchie:'30 g secche (o 80 g cotte)',ceci:'40 g cotti'};
 var AVRX=/\baglio|cipoll|scalogn|porri|cavolfior|funghi|fungo|piselli|fagiol|\bmele\b|\bmela\b|\bpere\b|\bpera\b|\borzo\b|\bfarro\b|carciof|asparagi/i;
 function recs(){return REC.filter(function(r){return !blocked(r)})}
@@ -688,7 +705,7 @@ var ALG_STRIP=/burro di cacao|burro di karit[eè]|latte di cocco|latte di soia|l
 /* ingredienti della dispensa -> allergeni (":L" = contiene lattosio) */
 var INGAL={pasta_int:['glu'],orzo:['glu'],farro:['glu'],pane_int:['glu'],fette_int:['glu'],avena:['glu'],
 merluzzo:['pesce'],orata:['pesce'],branzino:['pesce'],tonno_nat:['pesce'],salmone:['pesce'],sgombro:['pesce'],sardine:['pesce'],
-yogurt:['latte'],latte:['latte'],ricotta:['latte:L'],uova:['uova'],minestrone:['sedano']};
+yogurt:['latte'],latte:['latte'],ricotta:['latte:L'],uova:['uova'],minestrone:['sedano'],tofu:['soia'],sogliola:['pesce']};
 /* regole nome-alimento -> allergeni, per il database alimenti: h = presente, s = possibile */
 var FRX=[
 [/pasta|spaghetti|penne|fusilli|rigatoni|maccheroni|tagliatelle|\bpane\b|panino|panini|rosetta|michetta|focaccia|fett[ae] biscottat|cracker|grissini|taralli|gallette|pizza|\borzo\b|\bfarro\b|biscott|merendin|brioche|cornetto|croissant|torta|torte|crostata|pasticcin|cotolett|impanat|tempura|muesli|birra|seitan/,'glu','h'],
@@ -714,7 +731,7 @@ var GUT=/gonfi|diarrea|\bgas\b|irrit|fruttan|mannitol|sorbitol|lattosio|stimol|f
 var GERD=/fritto|fritti|fritture|tempura|impanat|cotolett|pomodor|agrum|arancia|limone|pompelmo|ananas|cioccolat|caff|menta|alcol|vino|birra|aperitivo|spritz|amaro|liquor|cocktail|aglio|cipoll|piccante|peperoncino|cola\b|bibit|salame|salsiccia|wurstel|pancetta|panna|burro|maionese|patatine/;
 var GOUTR=/manzo|bistecca|vitello|maiale|lonza|arrosto|carne rossa|selvaggina|fegato|frattagli|salame|prosciutto|bresaola|mortadella|salsiccia|wurstel|acciughe|sardine|sgombro|aringa|gamberi|calamari|polpo|cozze|vongole|birra|vino|alcol|aperitivo|spritz|amaro|liquor|cocktail|superalcolici/;
 var GOUTH=/birra|alcol|superalcolici|fegato|frattagli|aperitivo|spritz|amaro|liquor|cocktail/;
-var MEATRX=/carne|pollo|tacchino|coniglio|manzo|vitello|maiale|prosciutto|salame|mortadella|salsiccia|wurstel|bresaola|pancetta|speck|lardo|strutto|gelatina|brodo di carne|\bpesce\b|tonno|salmone|sgombr|sardin|acciug|merluzz|orata|branzin|gamber|calamar|polp|cozz|vongol|surimi|\bfish\b|chicken|\bbeef\b|\bpork\b|\bham\b/;
+var MEATRX=/carne|pollo|tacchino|coniglio|manzo|vitello|maiale|prosciutto|salame|mortadella|salsiccia|wurstel|bresaola|pancetta|speck|lardo|strutto|gelatina|brodo di carne|\bpesce\b|tonno|salmone|sgombr|sardin|acciug|merluzz|orata|branzin|sogliola|gamber|calamar|polp|cozz|vongol|surimi|\bfish\b|chicken|\bbeef\b|\bpork\b|\bham\b/;
 var ANIMRX=/\blatte\b|lattosio|burro|formagg|yogurt|\bpanna\b|\buova\b|\buovo\b|albume|tuorlo|\bmiele\b|siero di latte|caseina|mascarpone|ricotta|mozzarella|parmigian|\bmilk\b|cheese|butter|\begg\b|\bhoney\b|gelato/;
 
 var STOPTK={sgocciolato:1,sgocciolata:1,sgocciola:1,sgocciolare:1,sgocciolati:1};
@@ -1136,7 +1153,7 @@ function renderPantry(){if(typeof renderFirst==='function')renderFirst();
     h+='<div class="catt"><span>'+c[2]+'</span>'+c[1]+' <small>'+n+'/'+items.length+'</small></div><div class="chips">';
     items.forEach(function(a){
       var av=!usable(a[0]);
-      h+='<button class="chip'+(pantry.has(a[0])&&!av?' on':'')+(av?' avoid':'')+'" data-id="'+a[0]+'">'+a[3]+' '+a[1]+(av?' 🚫':'')+'</button>';
+      h+='<button class="chip'+(pantry.has(a[0])&&!av?' on':'')+(av?' avoid':'')+'" data-id="'+a[0]+'">'+(av?'<span class="nm">':'')+a[3]+' '+a[1]+(av?'</span> 🚫<small class="why">'+({allergia:'allergia',intolleranza:'intolleranza',dieta:'dieta',escluso:'escluso da te'}[PBLK[a[0]]]||'colon irritabile')+'</small>':'')+'</button>';
     });
     h+='</div>';
   });
@@ -1179,7 +1196,7 @@ function recCard(r){
   if(r.flags.indexOf('grasso')>-1)tags+='<span class="tag y">Pesce grasso</span>';
   if(r.flags.indexOf('uova')>-1)tags+='<span class="tag y">Uova</span>';
   var st=s.miss.length?'<div class="miss">Mancano: '+s.miss.map(label).join(', ')+'</div>':'<div class="ok">✓ Hai tutto</div>';
-  return '<div class="rec" data-n="'+r.n.replace(/"/g,'&quot;')+'"><div class="em">'+MEM[r.meals[0]]+'</div><div class="tx"><div class="nm">'+r.n+'</div><div class="mt">'+r.meals.join(' · ')+' · '+r.t+' min '+tags+'</div><div class="bar"><i style="width:'+pct+'%"></i></div>'+st+'</div></div>';
+  return '<div class="rec" data-n="'+r.n.replace(/"/g,'&quot;')+'"><div class="em">'+MEM[r.meals[0]]+'</div><div class="tx"><div class="nm">'+r.n+'</div><div class="mt">'+r.meals.join(' · ')+' · '+r.t+' min · '+kcalOf(r)+' kcal '+tags+'</div><div class="bar"><i style="width:'+pct+'%"></i></div>'+st+'</div></div>';
 }
 function renderRec(){
   renderPills();
@@ -1262,7 +1279,8 @@ function renderWeek(){
       var cls=!s?'c':s.ratio===1?'a':s.ratio>=0.5?'b':'c';
       h+='<div class="slot"><div class="lb">'+m[2]+' '+m[1]+'</div><span class="dot '+cls+'"></span><div class="nm" data-n="'+(r?r.n.replace(/"/g,'&quot;'):'')+'">'+(r?r.n:'—')+'</div><button class="swap" data-d="'+di+'" data-m="'+m[0]+'" title="Cambia">🔄</button></div>';
     });
-    h+='</div>';
+    var dk=0;MEALS.forEach(function(m){var rr=recByName(d[m[0]]);if(rr)dk+=kcalOf(rr)});
+    var lo=dk<DAY.k*.75;h+='<div class="dtot'+(lo?' lo':'')+'">Totale del giorno: circa '+Math.round(dk)+' kcal <small>(obiettivo '+DAY.k+')</small>'+(lo?'<small class="dwarn">Mancano circa '+Math.round((DAY.k-dk)/10)*10+' kcal: le ricette sono leggere. Aumenta le porzioni o aggiungi pane, frutta e olio, se il tuo piano lo prevede.</small>':'')+'</div></div>';
   });
   h+='<p class="sub" style="text-align:center">🟢 hai tutto · 🟡 manca qualcosa · ⚪ da comprare</p>';
   $('#weekBox').innerHTML=h;
@@ -1387,6 +1405,18 @@ G('pere','pere','fru','1 pera (150 g)');
 G('agrumi','agrumi','fru','1 arancia o 2 mandarini');
 G('frutti_bosco','frutti di bosco','fru','100 g');
 G('kiwi','kiwi','fru','2 kiwi');
+G('banana','banane','fru','1 banana (100 g)');
+G('patate','patate','amido','150 g','tagliale a cubetti e cuocile al forno a 200 °C per 25 minuti');
+G('fagiolini','fagiolini','ver','150 g','cuocili al vapore per 10 minuti','cook');
+G('peperoni','peperoni','ver','150 g','tagliali a strisce e cuocili in padella antiaderente con poca acqua','cook');
+G('cetrioli','cetrioli','ver','100 g','tagliali a fette e condiscili con limone','raw');
+G('bietole','bietole','ver','150 g','tagliale a strisce e cuocile in poca acqua per 8 minuti','cook');
+G('cavolo','cavolo cappuccio','ver','150 g','taglialo a strisce e cuocilo in poca acqua per 10 minuti','cook');
+G('manzo','manzo magro','pro','100 g',CH,'carne');
+G('tofu','tofu','pro','100-120 g','tagliailo a cubetti e rosolalo su piastra antiaderente senza olio','carne');
+G('sogliola','sogliola','pro','150 g',CH,'pesce');
+G('quinoa','quinoa','cer','60 g','sciacquala e cuocila 12-15 minuti in acqua salata','quinoa');
+G('polenta','polenta','cer','70 g','cuocila in acqua salata mescolando 10-15 minuti','polenta');
 var CROLE={
   verdura:{role:'ver',q:'200 g',how:'tagliala a pezzi e cuocila in padella antiaderente con poca acqua',t:'cook'},
   proteina:{role:'pro',t:'carne',q:'100-120 g',how:'cuocilo ai ferri o al forno, senza grassi aggiunti'},
@@ -1449,6 +1479,10 @@ function cBreakfast(it){
     o.push(mk(av?"Porridge d'avena al latte"+(F?' con '+F.dn:''):'Latte con '+B.dn,'colazione',[pt(l),pt(B),F&&pt(F)],
       [av?"Scalda il latte con i fiocchi d'avena per 4-5 minuti, mescolando.":'Scalda il latte, senza zucchero, e accompagna con '+B.dn+'.',av&&F&&'Aggiungi '+F.dn+' a pezzetti e la cannella.']));
   });
+  var Eg=find(it,'uova'),Pn=find(it,'pane_int'),Pm=find(it,'pomodorini'),Fe=find(it,'fette_int'),Yg=by(it,'yog')[0],Fr=one(fru),Ri=by(it,'ric')[0];
+  if(Eg&&Pn)o.push(mk('Pane integrale con uovo sodo'+(Pm?' e pomodorini':''),'colazione',[pt(Pn,'50 g'),pt(Eg,'1 uovo'),Pm&&pt(Pm,'60 g')],["Cuoci l'uovo in acqua bollente per 9 minuti, raffreddalo e sgusciarlo.",'Taglia uovo'+(Pm?' e pomodorini':'')+' e servi sul pane integrale.']));
+  if(Yg&&Fe&&Fr)o.push(mk('Yogurt con fette biscottate e '+Fr.dn,'colazione',[pt(Yg,'125 g'),pt(Fe,'3 fette (30 g)'),pt(Fr)],['Metti lo yogurt in una ciotola con la frutta a pezzetti.','Accompagna con le fette biscottate.']));
+  if(Ri&&Pn&&Pm)o.push(mk('Pane integrale con ricotta e pomodorini','colazione',[pt(Pn,'50 g'),pt(Ri,'50 g'),pt(Pm,'60 g')],['Spalma la ricotta sul pane.','Aggiungi i pomodorini a fettine e un po\' di basilico.']));
   return o;
 }
 function cSnack(it){
@@ -1462,6 +1496,10 @@ function cSnack(it){
   if(c&&yog.length)o.push(mk('Bastoncini di carota con salsa di yogurt','spuntino',[pt(c,'1-2 carote'),pt(yog[0],'60 g')],['Taglia le carote a bastoncini.','Mescola lo yogurt con succo di limone, erbe e sale.']));
   var f=find(it,'fette_int');
   if(f&&ric.length)o.push(mk('Fette biscottate con ricotta','spuntino',[pt(f,'2 fette'),pt(ric[0],'40 g')],['Spalma la ricotta sulle fette e aggiungi erbe a piacere.']));
+  var vr=by(it,'ver').filter(function(v){return ['carote','cetrioli','finocchi'].indexOf(v.id)>-1}).slice(0,3),Eg=find(it,'uova');
+  if(vr.length){var pz=mk('Pinzimonio di '+lst(dns(vr)),'spuntino',vr.map(function(v){return pt(v,'80 g')}),['Taglia le verdure a bastoncini.','Condisci con 1 cucchiaino di olio extravergine, limone e un pizzico di sale.']);pz.flags.push('olio');o.push(pz)}
+  if(Eg&&vr.length)o.push(mk('Uovo sodo con '+vr[0].dn,'spuntino',[pt(Eg,'1 uovo'),pt(vr[0],'100 g')],["Cuoci l'uovo in acqua bollente per 9 minuti, raffreddalo e sgusciarlo.",'Servi con '+vr[0].dn+' e limone.']));
+  if(ric.length&&vr.length)o.push(mk('Ricotta alle erbe con '+vr[0].dn,'spuntino',[pt(ric[0],'40 g'),pt(vr[0],'100 g')],['Mescola la ricotta con erbe aromatiche e limone.','Servila con '+vr[0].dn+' tagliati a bastoncini.']));
   return o;
 }
 function cLunch(it){
@@ -3386,6 +3424,216 @@ var icoBusy=false,icoObs=new MutationObserver(function(ms){
 });
 icoRun(document.body);
 icoObs.observe(document.body,{childList:true,subtree:true,characterData:true});
+
+/* ---------- RICETTE AGGIUNTIVE ---------- */
+(function(){
+var A=[
+/* COLAZIONE */
+R("Yogurt con banana e fiocchi d'avena",['colazione'],5,[['yogurt','150 g'],['banana','100 g'],['avena','25 g']],`Versa lo yogurt in una ciotola.|Aggiungi la banana a rondelle e i fiocchi d'avena.|Mescola e lascia riposare 3 minuti.`),
+R('Pane integrale con uovo sodo e pomodorini',['colazione'],12,[['pane_int','50 g'],['uova','1 uovo'],['pomodorini','60 g']],`Cuoci l'uovo in acqua bollente per 9 minuti, raffreddalo e sgusciarlo.|Taglia l'uovo a fette e i pomodorini a metà.|Servi sul pane integrale con un pizzico di origano.`,['uova']),
+R('Porridge di avena e banana',['colazione'],10,[['avena','40 g'],['latte','200 ml'],['banana','80 g']],`Scalda il latte con i fiocchi d'avena per 4-5 minuti, mescolando.|Aggiungi la banana a rondelle e la cannella.|Servi tiepido, senza zucchero.`),
+R('Fette biscottate con yogurt e frutti di bosco',['colazione'],4,[['fette_int','3 fette (30 g)'],['yogurt','125 g'],['frutti_bosco','80 g']],`Metti lo yogurt in una ciotola con i frutti di bosco.|Accompagna con le fette biscottate.`),
+R('Ricotta, banana e fette biscottate',['colazione'],4,[['ricotta','60 g'],['banana','80 g'],['fette_int','2 fette (20 g)']],`Spalma la ricotta sulle fette biscottate.|Aggiungi la banana a rondelle e un pizzico di cannella.`),
+R('Pancake di avena e banana',['colazione'],15,[['avena','40 g'],['banana','100 g'],['uova','1 uovo']],`Schiaccia la banana con una forchetta e uniscila all'uovo e ai fiocchi d'avena.|Cuoci piccole porzioni in padella antiaderente senza olio, 2 minuti per lato.|Servi con cannella o qualche frutto.`,['uova']),
+R('Frullato di latte, banana e avena',['colazione'],5,[['latte','200 ml'],['banana','100 g'],['avena','20 g']],`Metti tutto nel frullatore.|Frulla fino a ottenere una crema liscia e bevi subito.`),
+R('Pane integrale con ricotta e pomodorini',['colazione'],5,[['pane_int','50 g'],['ricotta','50 g'],['pomodorini','60 g']],`Spalma la ricotta sul pane.|Aggiungi i pomodorini a fettine e un po' di basilico.`),
+/* SPUNTINO */
+R('Banana con yogurt',['spuntino'],3,[['banana','100 g'],['yogurt','125 g']],`Taglia la banana a rondelle.|Uniscila allo yogurt e mescola.`),
+R('Pinzimonio di verdure crude',['spuntino'],6,[['finocchi','100 g'],['carote','80 g'],['cetrioli','80 g']],`Taglia le verdure a bastoncini.|Condisci con 1 cucchiaino di olio extravergine, limone e un pizzico di sale.`,['olio']),
+R('Carote e cetrioli con ricotta alle erbe',['spuntino'],6,[['carote','100 g'],['cetrioli','100 g'],['ricotta','40 g']],`Mescola la ricotta con erbe aromatiche e limone.|Servila con le verdure tagliate a bastoncini.`),
+R('Yogurt con frutti di bosco',['spuntino'],3,[['yogurt','125 g'],['frutti_bosco','80 g']],`Versa lo yogurt in una coppetta.|Aggiungi i frutti di bosco.`),
+R('Uovo sodo con cetrioli',['spuntino'],12,[['uova','1 uovo'],['cetrioli','100 g']],`Cuoci l'uovo in acqua bollente per 9 minuti, raffreddalo e sgusciarlo.|Servi con i cetrioli a fette e limone.`,['uova']),
+R('Pera cotta con yogurt',['spuntino'],15,[['pere','150 g'],['yogurt','100 g']],`Taglia la pera a spicchi e cuocila in forno a 180 °C per 12-15 minuti con cannella.|Servi tiepida con lo yogurt.`),
+/* PRANZO */
+R('Pasta integrale con patate e fagiolini',['pranzo'],30,[['pasta_int','60 g'],['patate','100 g'],['fagiolini','100 g']],`Taglia patate e fagiolini a pezzetti e cuocili in acqua per 10 minuti.|Unisci la pasta e cuoci tutto insieme fino a cottura.|Condisci con un cucchiaino di olio a crudo e basilico.`),
+R('Riso integrale con zucchine e tonno',['pranzo'],35,[['riso_int','60 g'],['zucchine','150 g'],['tonno_nat','60 g sgocciolato']],`Cuoci il riso in acqua salata per 25-30 minuti.|Cuoci le zucchine a rondelle in padella antiaderente con poca acqua.|Unisci riso, zucchine e tonno sgocciolato e condisci con limone.`),
+R('Quinoa con ceci e peperoni',['pranzo'],25,[['quinoa','60 g'],['ceci','100 g cotti'],['peperoni','150 g']],`Sciacqua la quinoa e cuocila in acqua per 12-15 minuti.|Cuoci i peperoni a pezzetti in padella antiaderente con poca acqua.|Unisci quinoa, ceci e peperoni e condisci con 1 cucchiaino di olio e limone.`),
+R('Quinoa con pollo e zucchine',['pranzo'],30,[['quinoa','60 g'],['pollo','100 g'],['zucchine','150 g']],`Cuoci la quinoa in acqua per 12-15 minuti.|Cuoci il pollo a dadini e le zucchine su piastra antiaderente senza olio.|Unisci tutto e condisci con limone ed erbe.`),
+R('Polenta con funghi',['pranzo'],35,[['polenta','70 g'],['funghi','150 g']],`Prepara la polenta con acqua salata, mescolando per 10-15 minuti (o usa la farina istantanea).|Cuoci i funghi affettati in padella antiaderente con prezzemolo.|Servi i funghi sulla polenta.`),
+R('Insalata di farro, tonno e cetrioli',['pranzo'],30,[['farro','60 g'],['tonno_nat','60 g sgocciolato'],['cetrioli','100 g'],['pomodorini','80 g']],`Cuoci il farro in acqua salata per 20-25 minuti e lascialo raffreddare.|Unisci tonno sgocciolato, cetrioli e pomodorini a pezzetti.|Condisci con 1 cucchiaino di olio e limone.`),
+R('Riso integrale con pollo e peperoni',['pranzo'],35,[['riso_int','60 g'],['pollo','100 g'],['peperoni','150 g']],`Cuoci il riso in acqua salata per 25-30 minuti.|Cuoci il pollo a strisce e i peperoni in padella antiaderente con poca acqua.|Unisci tutto e profuma con erbe.`),
+R('Pasta integrale con spinaci e ricotta',['pranzo'],20,[['pasta_int','60 g'],['spinaci','150 g'],['ricotta','40 g']],`Cuoci la pasta al dente.|Cuoci gli spinaci in padella con un cucchiaio d'acqua.|Condisci la pasta con gli spinaci e la ricotta sciolta con un po' di acqua di cottura.`),
+R('Orzo con zucca',['pranzo'],35,[['orzo','60 g'],['zucca','200 g']],`Cuoci la zucca a cubetti in poca acqua per 15 minuti e schiacciala in parte.|Aggiungi l'orzo e cuoci per 20-25 minuti, aggiungendo acqua calda se serve.|Servi con pepe e rosmarino.`),
+R('Zuppa di ceci e bietole',['pranzo'],30,[['ceci','100 g cotti'],['bietole','150 g']],`Cuoci le bietole tagliate a strisce in poca acqua per 8 minuti.|Aggiungi i ceci e scalda per altri 10 minuti.|Servi con 1 cucchiaino di olio a crudo.`),
+R('Pollo con patate e fagiolini',['pranzo'],40,[['pollo','110 g'],['patate','150 g'],['fagiolini','150 g']],`Taglia le patate a cubetti e cuocile in forno a 200 °C per 25 minuti.|Cuoci i fagiolini al vapore 10 minuti e il pollo su piastra senza olio.|Servi insieme con limone ed erbe.`),
+R('Tacchino con peperoni e riso',['pranzo'],35,[['tacchino','100 g'],['peperoni','150 g'],['riso_int','50 g']],`Cuoci il riso in acqua salata per 25-30 minuti.|Cuoci il tacchino a straccetti e i peperoni in padella antiaderente.|Servi il riso con tacchino e peperoni.`),
+R('Tofu con broccoli e riso integrale',['pranzo'],35,[['tofu','100 g'],['broccoli','150 g'],['riso_int','60 g']],`Cuoci il riso in acqua salata per 25-30 minuti.|Taglia il tofu a cubetti e rosolalo su piastra antiaderente senza olio.|Cuoci i broccoli al vapore e unisci tutto.`),
+R('Insalata di lenticchie, cetrioli e pomodorini',['pranzo'],10,[['lenticchie','120 g cotte'],['cetrioli','80 g'],['pomodorini','100 g']],`Sciacqua bene le lenticchie.|Unisci cetrioli e pomodorini a pezzetti.|Condisci con 1 cucchiaino di olio, limone e prezzemolo.`),
+R('Pasta integrale con melanzane e passata',['pranzo'],30,[['pasta_int','60 g'],['passata','100 g'],['melanzane','150 g']],`Cuoci le melanzane a cubetti in padella antiaderente con poca acqua.|Aggiungi la passata e cuoci 10 minuti con basilico.|Condisci la pasta al dente.`),
+R('Manzo magro con verdure al forno',['pranzo'],40,[['manzo','100 g'],[['zucchine','peperoni','melanzane'],'200 g di verdure','Verdure']],`Taglia le verdure a pezzi e cuocile in forno a 200 °C per 25 minuti.|Cuoci il manzo su piastra antiaderente senza olio.|Servi insieme con erbe aromatiche.`),
+/* CENA */
+R('Sogliola alla piastra con zucchine',['cena'],20,[['sogliola','150 g'],['zucchine','200 g']],`Cuoci le zucchine a rondelle in padella antiaderente con poca acqua.|Cuoci la sogliola su piastra 3-4 minuti per lato con limone.|Servi con prezzemolo.`),
+R('Sogliola con patate e fagiolini',['cena'],30,[['sogliola','150 g'],['patate','150 g'],['fagiolini','150 g']],`Cuoci patate e fagiolini al vapore per 15 minuti.|Cuoci la sogliola su piastra con limone ed erbe.|Servi tutto insieme.`),
+R('Merluzzo con patate e pomodorini',['cena'],35,[['merluzzo','150 g'],['patate','150 g'],['pomodorini','100 g']],`Taglia le patate a spicchi e cuocile in forno a 200 °C per 20 minuti.|Aggiungi merluzzo e pomodorini e cuoci altri 12 minuti.|Profuma con origano.`),
+R('Pollo con peperoni',['cena'],25,[['pollo','120 g'],['peperoni','200 g']],`Taglia il pollo a straccetti e i peperoni a strisce.|Cuoci in padella antiaderente con poca acqua per 15 minuti.|Profuma con erbe e limone.`),
+R('Manzo magro con spinaci',['cena'],20,[['manzo','100 g'],['spinaci','200 g']],`Cuoci gli spinaci in padella con un cucchiaio d'acqua.|Cuoci il manzo su piastra antiaderente senza olio.|Servi con limone.`),
+R('Tacchino con bietole e patate',['cena'],35,[['tacchino','110 g'],['bietole','150 g'],['patate','120 g']],`Cuoci patate e bietole al vapore.|Cuoci il tacchino su piastra antiaderente.|Servi insieme con limone ed erbe.`),
+R('Salmone con patate e cetrioli',['cena'],30,[['salmone','120 g'],['patate','150 g'],['cetrioli','100 g']],`Cuoci le patate a spicchi in forno a 200 °C per 20 minuti.|Aggiungi il salmone e cuoci altri 12 minuti.|Servi con i cetrioli a fette e limone.`,['grasso']),
+R('Frittata di zucchine',['cena'],25,[['uova','2 uova'],['zucchine','200 g']],`Cuoci le zucchine a rondelle in padella antiaderente con poca acqua.|Sbatti le uova, uniscile alle zucchine e cuoci coperto a fuoco basso 8 minuti per lato.|Servi con insalata.`,['uova']),
+R('Tofu con broccoli',['cena'],20,[['tofu','120 g'],['broccoli','200 g']],`Cuoci i broccoli al vapore 8-10 minuti.|Rosola il tofu a cubetti su piastra antiaderente senza olio.|Unisci e condisci con limone e un cucchiaino di olio.`),
+R('Minestra di orzo e bietole',['cena'],35,[['orzo','40 g'],['bietole','150 g'],['carote','50 g']],`Cuoci orzo, carote e bietole tagliate a pezzi in acqua per 25 minuti.|Regola di sale e servi con 1 cucchiaino di olio a crudo.`),
+R('Crema di zucca e patate',['cena'],30,[['zucca','200 g'],['patate','100 g']],`Cuoci zucca e patate a cubetti in acqua per 20 minuti.|Frulla con un po' di acqua di cottura.|Servi con pepe e rosmarino.`),
+R('Insalatona di pollo con cetrioli e pomodorini',['cena'],20,[['pollo','100 g'],['cetrioli','100 g'],['pomodorini','100 g'],['insalata','80 g']],`Cuoci il pollo su piastra e tagliato a strisce.|Unisci insalata, cetrioli e pomodorini.|Condisci con limone e 1 cucchiaino di olio.`),
+R('Tonno, patate e fagiolini',['cena'],25,[['tonno_nat','60 g sgocciolato'],['patate','150 g'],['fagiolini','150 g']],`Cuoci patate e fagiolini al vapore 15 minuti.|Unisci il tonno sgocciolato.|Condisci con limone e un cucchiaino di olio.`),
+R('Coniglio con patate al forno',['cena'],50,[['coniglio','110 g'],['patate','150 g']],`Taglia le patate a spicchi.|Cuoci coniglio e patate in forno a 190 °C per 40 minuti con rosmarino, eliminando il grasso visibile.`),
+R('Branzino con finocchi',['cena'],30,[['branzino','150 g'],['finocchi','200 g']],`Taglia i finocchi a spicchi e cuocili in forno a 190 °C per 15 minuti.|Aggiungi il branzino e cuoci altri 15 minuti con limone ed erbe.`),
+R('Bietole e ricotta al forno',['cena'],30,[['bietole','200 g'],['ricotta','80 g']],`Cuoci le bietole in poca acqua per 8 minuti e strizzale.|Mescola con la ricotta in una pirofila.|Cuoci in forno a 180 °C per 12 minuti.`)
+];
+Array.prototype.push.apply(REC,A);
+})();
+
+/* ---------- NUTRIZIONE, DOSI, PORZIONI ---------- */
+/* per 100 g come si usa nelle ricette: [kcal, proteine, carbo, zuccheri, grassi, saturi, fibre, sale g]
+   Valori indicativi da tabelle di composizione degli alimenti (medie): non sono dati di laboratorio.
+   Cereali e pasta: a crudo. Legumi e piselli: cotti. */
+var NUT={
+pasta_int:[340,13,66,3,2.5,.5,8,.01],riso_int:[337,7.5,76,.7,2.2,.6,2.2,.01],orzo:[319,10,72,1,1.5,.3,9,.01],farro:[335,15,67,1,2.5,.4,6.8,.01],
+avena:[375,13,60,1,7,1.4,10,.02],pane_int:[247,9,45,3,1.5,.3,6.5,1.1],fette_int:[395,11,70,5,7,1.5,9,.9],quinoa:[368,14,64,1.5,6,.7,7,.02],polenta:[362,8,79,1,1.2,.2,2.2,.01],
+lenticchie:[116,9,20,1,.4,.1,8,.02],ceci:[164,9,27,5,2.6,.3,7.6,.02],fagioli:[127,8.7,22,.3,.5,.1,6.4,.02],piselli:[80,5.4,14,5.7,.4,.1,5.5,.02],
+zucchine:[17,1.3,2.5,1.7,.3,.1,1,.01],broccoli:[34,2.8,4,1.7,.4,.1,2.6,.03],cavolfiore:[25,2.5,2.7,2,.3,.1,2.4,.02],spinaci:[24,3,1.5,.5,.6,.1,2.2,.17],
+carote:[39,1,7.6,7,.2,0,3.1,.15],funghi:[22,3.1,3.3,2,.3,.05,1,.01],pomodorini:[19,.9,3.5,2.6,.2,.05,1.2,.01],insalata:[15,1.4,2.3,1,.2,.03,1.3,.03],
+finocchi:[31,1.2,7.3,3.9,.2,.05,3.1,.25],zucca:[26,1,6.5,2.8,.1,.05,.5,.01],melanzane:[25,1,6,3.5,.2,.05,3,.01],minestrone:[30,1.7,5,2.5,.3,.05,2.5,.05],
+patata_dolce:[86,1.6,20,4.2,.1,0,3,.1],patate:[77,2,17,1,.1,0,2.2,.01],fagiolini:[31,1.8,5,2,.2,.05,3.2,.01],peperoni:[26,1,5,3.5,.3,.1,1.9,.01],
+cetrioli:[12,.7,2,1.4,.1,0,.7,.01],bietole:[19,1.8,3.7,1.1,.2,0,1.6,.45],cavolo:[25,1.3,5.8,3.2,.1,0,2.5,.02],
+mele:[52,.3,14,10,.2,0,2.4,0],pere:[57,.4,15,10,.1,0,3.1,0],agrumi:[47,.9,12,9,.1,0,2.4,0],frutti_bosco:[45,1,9,6,.4,0,4,0],kiwi:[61,1.1,15,9,.5,0,3,0],banana:[89,1.1,23,12,.3,.1,2.6,0],
+merluzzo:[75,17,0,0,.5,.1,0,.25],orata:[100,20,0,0,2.5,.7,0,.2],branzino:[97,18.5,0,0,2.5,.7,0,.2],sogliola:[83,17,0,0,1.2,.3,0,.25],tonno_nat:[103,24,0,0,.8,.2,0,1],
+salmone:[190,20,0,0,12,2.5,0,.15],sgombro:[175,19,0,0,10.5,2.4,0,.2],sardine:[130,20,0,0,5.5,1.5,0,.2],
+pollo:[110,23,0,0,1.5,.4,0,.2],tacchino:[107,24,0,0,1,.3,0,.2],coniglio:[136,21,0,0,5.5,1.6,0,.1],manzo:[125,21.5,0,0,4,1.6,0,.15],tofu:[120,13,1.5,.5,7,1,1,.02],
+yogurt:[36,3.8,5,5,.2,.1,0,.1],ricotta:[120,10,3.5,3.5,7.5,4.7,0,.2],latte:[34,3.4,5,5,.2,.1,0,.1],uova:[143,12.5,.7,.4,9.5,3,0,.35],
+passata:[32,1.5,5.5,4.5,.2,.04,1.5,.15],te:[1,0,.2,0,0,0,0,0],olio:[884,0,0,0,100,14,0,0]
+};
+/* stima per alimenti inseriti a mano: media della categoria scelta */
+var CNUT={verdura:[25,2,3,2,.3,.05,2.5,.05],proteina:[120,21,0,0,4,1.2,0,.2],cereale:[340,12,68,2,2,.5,6,.02],legume:[116,9,20,1,.5,.1,7,.02],frutta:[50,.7,12,9,.2,0,2.2,0],latticino:[100,8,4,4,5,3,0,.2],altro:[150,6,20,5,5,1.5,2,.3]};
+/* peso di un pezzo (g) */
+var PZ={uova:60,mele:150,pere:150,agrumi:150,kiwi:75,banana:100,carote:80,fette_int:9,pane_int:40,pomodorini:15,patate:120};
+var NK=['k','p','c','su','f','s','fi','sa'];
+var NLAB={k:'kcal',p:'proteine',c:'carboidrati',su:'di cui zuccheri',f:'grassi',s:'di cui saturi',fi:'fibre',sa:'sale'};
+var DOSE=store.get('dose',{}),PORT=store.get('port',1);
+function saveDose(){store.set('dose',DOSE);store.set('port',PORT)}
+function toNum(s){s=String(s).replace(',','.');if(s.indexOf('/')>0){var a=s.split('/');return (+a[0])/(+a[1])}return +s}
+function gramsOf(id,q){
+  q=String(q||'');var m,re=/(\d+(?:[.,]\d+)?)(?:\s*-\s*(\d+(?:[.,]\d+)?))?\s*(kg|g|ml|l)\b(?:\s+di)?\s*(cott[ei]|secch[ei]|sgocciolat[oi])?/gi,all=[];
+  while((m=re.exec(q))){var v=toNum(m[1]);if(m[2])v=(v+toNum(m[2]))/2;if(/^kg$|^l$/i.test(m[3]))v*=1000;all.push({v:v,t:(m[4]||'').toLowerCase()})}
+  if(all.length){
+    var c=all.filter(function(x){return /^cott/.test(x.t)})[0];if(c)return c.v;
+    var s=all.filter(function(x){return /^secch/.test(x.t)})[0];
+    if(s&&(id==='lenticchie'||id==='ceci'||id==='fagioli'))return s.v*2.5;
+    return all[0].v;
+  }
+  m=/(\d\/\d|\d+(?:[.,]\d+)?)(?:\s*-\s*(\d+(?:[.,]\d+)?))?\s*(fett|uov|mel[ae]|per[ae]|aranc|mandarin|kiwi|frutt|carot|spicch|pomodor)/i.exec(q);
+  if(m){var n=toNum(m[1]);if(m[2])n=(n+toNum(m[2]))/2;return n*(PZ[id]||100)}
+  if(GEN[id]&&GEN[id].q&&GEN[id].q!==q)return gramsOf(id,GEN[id].q);
+  return 100;
+}
+function nutRow(id,cat){
+  if(NUT[id])return {n:NUT[id],est:false};
+  if(String(id).indexOf('c:')===0)return {n:CNUT[cat]||CNUT.altro,est:true};
+  return null;
+}
+function recRows(r){
+  return r.ings.map(function(i,idx){
+    var ids=i.g||[i.id];
+    var q=i.g?qq(i):i.q;
+    return {i:idx,ids:ids,l:label(i.g?i:{g:ids,l:i.l}),q:q,gen:!i.g};
+  });
+}
+function recKey(r){return r.ings[0]&&r.ings[0].g?'f:'+r.n:'g:'+favKey(r)}
+function pickId(row,st){
+  if(st&&st.id&&row.ids.indexOf(st.id)>-1&&usable(st.id))return st.id;
+  for(var k=0;k<row.ids.length;k++){if(usable(row.ids[k])&&(gOkId(row.ids[k])))return row.ids[k]}
+  for(k=0;k<row.ids.length;k++){if(usable(row.ids[k]))return row.ids[k]}
+  return row.ids[0];
+}
+function gOkId(id){return pantry.has(id)}
+function recMeal(r){return r.meal||(r.meals&&r.meals[0])||'pranzo'}
+function recNut(r){
+  var key=recKey(r),D=DOSE[key]||{},rows=recRows(r),T={k:0,p:0,c:0,su:0,f:0,s:0,fi:0,sa:0},out=[],est=false,miss=false;
+  rows.forEach(function(row){
+    var st=D[row.i]||{},id=pickId(row,st),def=Math.round(gramsOf(id,row.q)*PORT),g=(st.g!=null)?st.g:def;
+    var cat=String(id).indexOf('c:')===0?customCat(id):null,nr=nutRow(id,cat);
+    if(nr){if(nr.est)est=true;NK.forEach(function(k,j){T[k]+=nr.n[j]*g/100})}else miss=true;
+    out.push({i:row.i,id:id,ids:row.ids,l:(row.ids.length>1||row.gen)?(ID[id]?ID[id].n:row.l):row.l,g:g,def:def,q:row.q,edited:st.g!=null,alt:row.ids.length>1});
+  });
+  var m=recMeal(r);
+  if(m==='pranzo'||m==='cena'||(r.flags||[]).indexOf('olio')>-1){NK.forEach(function(k,j){T[k]+=NUT.olio[j]*5/100});}
+  return {T:T,rows:out,est:est,miss:miss,oil:(m==='pranzo'||m==='cena'||(r.flags||[]).indexOf('olio')>-1)};
+}
+function customCat(id){
+  var n=String(id).slice(2),i;for(i=0;i<custom.length;i++){if(custom[i].n===n)return ({verdure:'verdura',carni:'proteina',pesce:'proteina',cereali:'cereale',legumi:'legume',frutta:'frutta',latticini:'latticino'})[custom[i].c]||custom[i].c}
+  return 'altro';
+}
+function kcalOf(r){return Math.round(recNut(r).T.k)}
+function fmtG(v){return v>=10?String(Math.round(v)):String(Math.round(v*10)/10).replace('.',',')}
+function shareTarget(m){return Math.round(DAY.k*(SHARE[m]||.3))}
+function nutBlock(r){
+  var key=recKey(r);NW[key]=r;
+  var N=recNut(r),T=N.T,m=recMeal(r),tg=shareTarget(m),pc=Math.round(T.k/tg*100),cl=pc>115?'r':pc>100?'y':'';
+  var h='<div class="nw" data-k="'+esc(key)+'">';
+  h+='<div class="nmx"><div><b>'+Math.round(T.k)+'</b>kcal</div><div><b>'+fmtG(T.p)+' g</b>proteine</div><div><b>'+fmtG(T.c)+' g</b>carbo</div><div><b>'+fmtG(T.f)+' g</b>grassi</div></div>';
+  h+='<div class="nsm">Fibre '+fmtG(T.fi)+' g · Zuccheri '+fmtG(T.su)+' g · Saturi '+fmtG(T.s)+' g · Sale '+fmtG(T.sa)+' g</div>';
+  h+='<div class="nbar"><i class="'+cl+'" style="width:'+Math.min(100,pc)+'%"></i></div><div class="nsm">'+pc+'% del tuo '+m+' (circa '+tg+' kcal). '+(N.oil?'Include 5 g di olio extravergine. ':'')+'Valori indicativi.'+(N.est?' Alcuni alimenti inseriti a mano sono stimati.':'')+(N.miss?' Per qualche ingrediente mancano i dati.':'')+'</div>';
+  if(pc<70&&(m==='pranzo'||m==='cena'))h+='<div class="nhint">Piatto leggero: sta sotto il tuo obiettivo per questo pasto. Puoi aumentare le dosi o aggiungere pane integrale e frutta, se il tuo piano lo prevede.</div>';
+  h+='<div class="nport"><span>La mia porzione</span>'+[.8,.9,1,1.1,1.25,1.5].map(function(x){return '<button type="button" class="pp'+(Math.abs(PORT-x)<.01?' on':'')+'" data-p="'+x+'">'+Math.round(x*100)+'%</button>'}).join('')+'</div>';
+  h+='<b>Ingredienti</b><div class="dl">';
+  N.rows.forEach(function(w){
+    var inPan=r.ings[0]&&r.ings[0].g?gOk(r.ings[w.i].g):true;
+    h+='<div class="dr" data-i="'+w.i+'"><div class="dn">'+(inPan?'✅':'🛒')+' '+esc(w.l)+(w.alt?alt(w):'')+'<small>'+esc(w.q)+'</small></div>'
+      +'<div class="st"><button type="button" class="ds" data-d="-1" aria-label="Meno">−</button><span class="dv'+(w.edited?' ed':'')+'">'+w.g+' g</span><button type="button" class="ds" data-d="1" aria-label="Più">+</button></div></div>';
+  });
+  h+='</div>';
+  var ed=N.rows.some(function(w){return w.edited})||(DOSE[key]&&Object.keys(DOSE[key]).some(function(k){return DOSE[key][k].id}));
+  if(ed)h+='<button type="button" class="dreset">Ripristina le dosi originali</button>';
+  return h+'</div>';
+}
+function alt(w){
+  return '<select class="dsel">'+w.ids.filter(usable).map(function(id){return '<option value="'+id+'"'+(id===w.id?' selected':'')+'>'+esc(ID[id].n)+'</option>'}).join('')+'</select>';
+}
+var NW={};
+function stepFor(id,g){return g<=30?5:10}
+function rerender(box){
+  var r=NW[box.getAttribute('data-k')];if(!r)return;
+  var t=document.createElement('div');t.innerHTML=nutBlock(r);box.replaceWith(t.firstChild);
+  if(typeof renderRec==='function')renderRec();
+}
+document.addEventListener('click',function(e){
+  var box=e.target.closest&&e.target.closest('.nw');if(!box)return;
+  var key=box.getAttribute('data-k'),r=NW[key];if(!r)return;
+  var b=e.target.closest('.ds');
+  if(b){
+    var row=b.closest('.dr'),i=+row.getAttribute('data-i'),N=recNut(r),w=N.rows[i],st=(DOSE[key]=DOSE[key]||{})[i]=(DOSE[key]||{})[i]||{};
+    var cur=w.g,d=+b.getAttribute('data-d'),n=Math.max(0,cur+d*stepFor(w.id,cur));st.g=n;saveDose();rerender(box);return;
+  }
+  var p=e.target.closest('.pp');
+  if(p){PORT=+p.getAttribute('data-p');saveDose();rerender(box);return}
+  if(e.target.closest('.dreset')){delete DOSE[key];saveDose();rerender(box);return}
+});
+document.addEventListener('change',function(e){
+  var s=e.target.closest&&e.target.closest('.dsel');if(!s)return;
+  var box=s.closest('.nw'),key=box.getAttribute('data-k'),row=s.closest('.dr'),i=+row.getAttribute('data-i');
+  var st=(DOSE[key]=DOSE[key]||{})[i]=(DOSE[key]||{})[i]||{};st.id=s.value;delete st.g;saveDose();rerender(box);
+});
+/* ricette fisse: scheda con dosi */
+openRec=function(n){
+  var r=recByName(n);if(!r)return;
+  var h='<button class="x" id="cl">✕</button><h2>'+r.n+'</h2><div class="mt" style="color:var(--mut);font-size:13px;margin-bottom:8px">'+r.meals.join(' · ')+' · '+r.t+' min · 1 persona</div>';
+  if(r.flags.indexOf('grasso')>-1)h+='<div class="alert y">Pesce grasso: al massimo 1 volta a settimana.</div>';
+  if(r.flags.indexOf('uova')>-1)h+='<div class="alert y">Uova: al massimo 2 a settimana.</div>';
+  h+=nutBlock(r);
+  h+='<b>Preparazione</b><ol>'+r.steps.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ol>';
+  h+='<div class="alert g" style="margin:0">Condimento: 1 cucchiaino di olio extravergine a crudo, niente soffritti né fritture.</div>';
+  $('#sheet').innerHTML=h;$('#ovl').classList.add('on');$('#cl').addEventListener('click',closeSheet);
+};
+/* ricette generate */
+genHtml=function(r){
+  var h='<h2 style="margin:0 0 4px">'+esc(r.n)+'</h2><div style="color:var(--mut);font-size:13px;margin-bottom:8px">'+MEM[r.meal]+' '+r.meal+' · 1 persona · ricetta creata dal tool</div>';
+  if(r.flags.indexOf('grasso')>-1)h+='<div class="alert y">Pesce grasso: al massimo 1 volta a settimana.</div>';
+  if(r.flags.indexOf('uova')>-1)h+='<div class="alert y">Uova: al massimo 2 a settimana.</div>';
+  if(r.tip)h+='<div class="alert b">💡 '+esc(r.tip)+'</div>';
+  h+=nutBlock(r);
+  h+='<b>Preparazione</b><ol>'+r.steps.map(function(s){return '<li>'+esc(s)+'</li>'}).join('')+'</ol>';
+  h+='<div class="alert g" style="margin:0">Olio extravergine: 1 cucchiaino a pasto, niente fritti né soffritti. Se un ingrediente è confezionato, controlla l\'etichetta.</div>';
+  return h;
+};
 
 $('#nfBc').addEventListener('click',function(){$('#nfO').classList.remove('on');openBc()});
 $('#nfHome').addEventListener('click',function(){nfSave(false,true)});
