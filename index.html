@@ -207,9 +207,8 @@ main{margin-top:-52px}
 .act:active{transform:scale(.96)}
 #fTabs{display:none}
 .fcard{padding-top:4px}
-body.vo nav button[data-v=crea],body.vo nav button[data-v=ric],body.vo nav button[data-v=sett],body.vo .act.a2{display:none}
-body.vo .acts{grid-template-columns:1fr 1fr}
-body.nn .fm,body.nn .fp,body.nn .act.a2{display:none}
+body.vo nav button[data-v=ric],body.vo nav button[data-v=sett],body.vo #goMeal{display:none}
+body.nn .fm,body.nn .fp,body.nn #goMeal{display:none}
 .fres.n{border-color:var(--line);background:var(--card)}
 .pw{position:fixed;inset:0;z-index:60;background:var(--bg);overflow:auto;display:none}
 .pw.on{display:block}
@@ -279,6 +278,33 @@ body.nn .fm,body.nn .fp,body.nn .act.a2{display:none}
 .qlg{display:flex;justify-content:space-between;font-size:11.5px;color:var(--mut);font-weight:700}
 #w_quad .lw{margin-top:8px;font-size:12.5px}
 
+/* ---- fase 1: interfaccia semplificata ---- */
+body.sub header{padding:10px 14px 36px}
+body.sub .hq{display:none}
+body.sub .hl svg{width:30px;height:30px}
+body.sub .hl b{font-size:17px}
+body.sub main{margin-top:-26px}
+.sbar{display:flex;gap:8px;align-items:center;margin-top:4px}
+.sbar input[type=search]{flex:1;min-width:0;margin:0;width:auto}
+.sbi{flex:none;width:46px;height:46px;border-radius:13px;border:1.5px solid var(--line);background:var(--gl);color:var(--g);display:flex;align-items:center;justify-content:center;font-size:21px;cursor:pointer}
+.sbh{font-size:12px;color:var(--mut);margin-top:7px}
+.mrow{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);margin-top:16px;padding-top:13px;font-weight:800;cursor:pointer}
+.mrow b{font-size:24px;color:var(--mut);line-height:1}
+.seg2{display:flex;gap:6px;background:var(--card);border-radius:14px;padding:5px;box-shadow:var(--sh);margin-bottom:12px}
+.seg2 button{flex:1;border:0;background:none;font-family:inherit;font-weight:800;font-size:14px;color:var(--mut);padding:10px;border-radius:10px;cursor:pointer}
+.seg2 button.on{background:var(--gl);color:var(--g)}
+.card.first{background:var(--yl)}.card.first h2{margin-top:0}
+.lerr2{font-size:12.5px;color:var(--y);font-weight:700;margin-top:6px}
+
+/* ---- icone a linea al posto delle emoji ---- */
+.ic{display:inline-block;width:1.15em;height:1.15em;vertical-align:-.2em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ic.k-g{color:var(--g)}.ic.k-y{color:var(--y)}.ic.k-r{color:var(--r)}
+.btn .ic,.fres .ic,.vd .ic,.pill.on .ic,header .ic,.toast .ic,.bch .ic,.hp .ic{color:inherit}
+nav button span{display:flex;align-items:center;justify-content:center;height:24px}nav button span .ic{width:24px;height:24px;stroke-width:1.8}
+.em .ic{width:1.1em;height:1.1em;color:var(--g)}
+.lt{display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:900;line-height:1}
+.lt.g:after{content:"\2713"}.lt.y:after{content:"!"}.lt.r:after{content:"\2715"}
+
 .lt.n{background:#90a4ae}
 </style>
 </head>
@@ -291,20 +317,17 @@ body.nn .fm,body.nn .fp,body.nn .act.a2{display:none}
 <main>
   <!-- IN CASA -->
   <section class="view on" id="v-casa">
-    <div class="card acts" id="acts">
-      <button class="act a1 on" data-k="s"><span>🔎</span>Posso mangiarlo?</button>
-      <button class="act a2" data-k="m"><span>🍽</span>Cosa ho mangiato?</button>
-      <button class="act a3" data-k="b"><span>📷</span>Scansiona il codice</button>
-    </div>
     <div class="card fcard">
       <div class="pills" id="fTabs"><button class="pill on" data-k="s">🔎 Posso mangiarlo?</button><button class="pill" data-k="m">🍽 Cosa ho mangiato?</button></div>
       <div id="fBoxS">
-        <input type="search" id="fq" placeholder="Es. banana, cachi, parmigiano…" autocomplete="off" style="width:100%;margin-top:12px">
-        <div class="fph"><div class="fpt">📷 Hai la confezione? Fotografa la tabella nutrizionale</div><div class="row" style="margin-top:8px"><label class="btn sm" for="fsCam">📷 Scatta la tabella</label><input type="file" id="fsCam" accept="image/*" capture="environment" style="position:absolute;opacity:0;width:1px;height:1px"><label class="btn sm ghost" for="fsGal">🖼 Dalla galleria</label><input type="file" id="fsGal" accept="image/*" style="position:absolute;opacity:0;width:1px;height:1px"></div></div>
+        <div class="sbar"><input type="search" id="fq" placeholder="Posso mangiarlo?" autocomplete="off"><button class="sbi" id="fqBc" type="button" aria-label="Scansiona il codice a barre" title="Scansiona il codice a barre">📦</button><label class="sbi" for="fsGal" title="Foto della tabella nutrizionale" aria-label="Foto della tabella nutrizionale">📷</label><input type="file" id="fsGal" accept="image/*" style="position:absolute;opacity:0;width:1px;height:1px"></div>
+        <div class="sbh">📦 codice a barre · 📷 foto della tabella nutrizionale</div>
         <div class="pills" id="fEx" style="margin-top:10px"><button class="pill">banana</button><button class="pill">cachi</button><button class="pill">parmigiano</button><button class="pill">pane</button><button class="pill">uova</button></div>
         <div id="fOut" style="margin-top:12px"><div class="sub">Scrivi un alimento (es. banana, cachi, parmigiano) e ti dico se va bene.</div></div>
+        <div class="mrow" id="goMeal"><span>🍽 Cosa ho mangiato oggi?</span><b>›</b></div>
       </div>
       <div id="fBoxM" style="display:none">
+        <button class="btn sm ghost" id="mBack" type="button" style="margin-top:10px">← Posso mangiarlo?</button>
         <textarea id="mq" rows="3" placeholder="Es. pasta al pomodoro con parmigiano e una banana" style="width:100%;margin-top:12px"></textarea>
         <div class="pills" id="mEx" style="margin-top:8px"><button class="pill">pasta al pomodoro con parmigiano e una banana</button><button class="pill">2 uova con pane e prosciutto cotto</button></div>
         <div class="row" style="margin-top:10px"><select id="mType" style="font:inherit;font-size:16px;padding:10px 12px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)"><option value="colazione">☕ Colazione</option><option value="spuntino">🍎 Spuntino</option><option value="pranzo" selected>🍝 Pranzo</option><option value="cena">🍲 Cena</option></select></div>
@@ -312,7 +335,8 @@ body.nn .fm,body.nn .fp,body.nn .act.a2{display:none}
         <div id="mOut" style="margin-top:12px"></div>
       </div>
     </div>
-    <div class="card">
+    <div class="card first" id="firstStep" style="display:none"></div>
+    <div class="card" id="pantryCard">
       <h2>🏠 Cosa hai in casa?</h2>
       <p class="sub">Tocca gli alimenti che hai. Le ricette e il menu useranno questi.</p>
       <div class="stat"><b id="nrec">0</b><div id="nrecT"></div></div>
@@ -322,8 +346,8 @@ body.nn .fm,body.nn .fp,body.nn .act.a2{display:none}
       </div>
       <div id="pantry"></div>
       <div class="catt">➕ Altro <small>alimenti non in elenco</small></div>
-      <div class="row"><input type="text" id="cin" placeholder="Es. broccoli surgelati, tacchino…" autocomplete="off"><select id="ccat"><option value="verdura">È una verdura</option><option value="proteina">È una proteina (carne/pesce)</option><option value="cereale">È un cereale</option><option value="legume">È un legume</option><option value="frutta">È frutta</option><option value="latticino">È un latticino</option><option value="altro">Altro</option></select><button class="btn sm" id="cadd">Aggiungi</button></div>
-      <p class="sub" style="margin:6px 0 0">Scegli cos'è: così “Crea” può usarlo nelle ricette.</p>
+      <div class="row"><input type="text" id="cin" placeholder="Es. broccoli surgelati, tacchino…" autocomplete="off"><select id="ccat"><option value="verdura">È una verdura</option><option value="proteina">È una proteina (carne/pesce)</option><option value="cereale">È un cereale</option><option value="legume">È un legume</option><option value="frutta">È frutta</option><option value="latticino">È un latticino</option><option value="altro">Altro</option></select><button class="btn sm" id="cadd">Aggiungi</button><button class="btn sm sec" id="cBc" type="button" title="Scansiona il codice a barre" aria-label="Scansiona il codice a barre">📦 Scansiona</button></div>
+      <p class="sub" style="margin:6px 0 0">Scegli cos'è: così “Inventa” può usarlo nelle ricette.</p>
       <div class="chips" id="cust" style="margin-top:10px"></div>
       <p class="sub" style="margin-top:14px">Sempre considerati presenti: olio extravergine, sale, spezie ed erbe, limone. Gli alimenti non adatti al tuo profilo (allergie, condizioni, esclusioni) non vengono usati.</p>
     </div>
@@ -331,6 +355,7 @@ body.nn .fm,body.nn .fp,body.nn .act.a2{display:none}
 
   <!-- CREA -->
   <section class="view" id="v-crea">
+    <div class="seg2"><button data-go="ric">🍽 Per te</button><button class="on" data-go="crea">✨ Inventa</button></div>
     <div class="card gcard">
       <h2>✨ Crea con quello che hai</h2>
       <p class="sub">Il tool inventa un piatto usando solo gli alimenti di “In casa”, con le porzioni e le regole del piano.</p>
@@ -339,7 +364,7 @@ body.nn .fm,body.nn .fp,body.nn .act.a2{display:none}
       <button class="btn" id="gGo">✨ Inventa una ricetta</button>
       <div id="gOut" style="margin-top:14px"></div>
     </div>
-    <div class="card">
+    <div class="card" id="favCard">
       <h2>⭐ Ricette salvate</h2>
       <div id="favList"></div>
     </div>
@@ -351,6 +376,7 @@ body.nn .fm,body.nn .fp,body.nn .act.a2{display:none}
       <h2>🏷 Controlla un prodotto</h2>
       <p class="sub">1) Fotografa la tabella e ritaglia solo quella. 2) Controlla i numeri guardando la foto. 3) Fotografa gli ingredienti.</p>
       <div class="alert y">La lettura da foto sbaglia spesso: i valori letti sono in <b>giallo</b>, quelli dubbi in <b>rosso</b>. Controllali sempre. Per leggere le foto serve internet; scrivere i numeri a mano funziona anche offline.</div>
+      <button class="btn sm sec" id="eBc" type="button" style="margin:0 0 10px;width:100%">📦 Scansiona il codice a barre</button>
       <div class="row"><select id="eType"><option value="food">Alimento (valori per 100 g)</option><option value="drink">Bevanda (valori per 100 ml)</option><option value="oil">Olio o condimento</option></select></div>
       <div class="row" style="margin:10px 0 4px">
         <label class="btn sec sm" for="fTab">📷 Foto tabella</label><input type="file" id="fTab" accept="image/*" hidden>
@@ -374,6 +400,7 @@ body.nn .fm,body.nn .fp,body.nn .act.a2{display:none}
 
   <!-- RICETTE -->
   <section class="view" id="v-ric">
+    <div class="seg2"><button class="on" data-go="ric">🍽 Per te</button><button data-go="crea">✨ Inventa</button></div>
     <div class="card">
       <h2>🍽 Ricette adatte</h2>
       <p class="sub">Ordinate per quanti ingredienti hai già. Tocca una ricetta per i dettagli.</p>
@@ -390,7 +417,7 @@ body.nn .fm,body.nn .fp,body.nn .act.a2{display:none}
   <section class="view" id="v-sett">
     <div class="card">
       <h2>📅 Menu della settimana</h2>
-      <p class="sub">Generato usando soprattutto ciò che hai. Il pesce grasso compare al massimo 1 volta e le uova al massimo 2.</p>
+      <p class="sub">Premi “Genera settimana”: il menu usa soprattutto ciò che hai. Il pesce grasso compare al massimo 1 volta e le uova al massimo 2.</p>
       <div class="row">
         <button class="btn" id="genW">🎲 Genera settimana</button>
         <button class="btn sec" id="copyW">📋 Copia menu</button>
@@ -408,7 +435,7 @@ body.nn .fm,body.nn .fp,body.nn .act.a2{display:none}
   <!-- SEMAFORO -->
   <section class="view" id="v-sem">
     <div class="card">
-      <button class="btn ghost sm" id="semBack" style="margin-bottom:10px">← Info</button>
+      <button class="btn ghost sm" id="semBack" style="margin-bottom:10px">← Profilo</button>
       <h2>🚦 Semaforo alimenti</h2>
       <p class="sub">Verde: sì. Giallo: con moderazione. Rosso: da evitare.</p>
       <div class="pills" id="semPills"></div>
@@ -426,12 +453,11 @@ body.nn .fm,body.nn .fp,body.nn .act.a2{display:none}
 
 <nav>
   <button data-v="casa" class="on"><span>🏠</span>In casa</button>
-  <button data-v="crea"><span>✨</span>Crea</button>
-  <button data-v="ric"><span>🍽</span>Pronte</button>
+  <button data-v="ric"><span>🍳</span>Ricette</button>
   <button data-v="sett"><span>📅</span>Settimana</button>
   <button data-v="etic"><span>🏷</span>Etichetta</button>
   <button data-v="sem" style="display:none"><span>🚦</span>Semaforo</button>
-  <button data-v="info"><span>⚠️</span>Info</button>
+  <button data-v="info"><span>👤</span>Profilo</button>
 </nav>
 
 <div class="ovl" id="ovl"><div class="sheet" id="sheet"></div></div>
@@ -442,7 +468,8 @@ body.nn .fm,body.nn .fp,body.nn .act.a2{display:none}
   <button class="btn sm sec" id="nfBc" style="margin-bottom:10px">📦 Scansiona il codice a barre</button>
   <div id="nfSrc" style="display:none"></div>
   <input type="text" id="nf_n" placeholder="Nome (es. Filetti di sgombro al naturale)" autocomplete="off" style="width:100%;font:inherit;font-size:16px;padding:11px 13px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);box-sizing:border-box">
-  <select id="nf_cat" style="width:100%;margin-top:8px;font:inherit;font-size:16px;padding:11px 13px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)"><option value="proteina">È una proteina (carne, pesce, uova…)</option><option value="verdura">È una verdura</option><option value="cereale">È un cereale o pane</option><option value="legume">È un legume</option><option value="frutta">È frutta</option><option value="latticino">È un latticino</option><option value="altro">Altro</option></select>
+  <select id="nf_cat" style="width:100%;margin-top:8px;font:inherit;font-size:16px;padding:11px 13px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)"><option value="">Che tipo di alimento è?</option><option value="proteina">È una proteina (carne, pesce, uova…)</option><option value="verdura">È una verdura</option><option value="cereale">È un cereale o pane</option><option value="legume">È un legume</option><option value="frutta">È frutta</option><option value="latticino">È un latticino</option><option value="altro">Altro</option></select>
+  <div id="nfCatW" class="lerr2" style="display:none"></div>
   <div class="ng" style="margin-top:12px">Tabella nutrizionale</div>
   <div class="row" style="margin-top:6px"><label class="btn sm" for="nfCam">📷 Scatta</label><input type="file" id="nfCam" accept="image/*" capture="environment" style="position:absolute;opacity:0;width:1px;height:1px"><label class="btn sm ghost" for="nfTab">🖼 Dalla galleria</label><input type="file" id="nfTab" accept="image/*" style="position:absolute;opacity:0;width:1px;height:1px"></div>
   <div class="ng" style="margin-top:12px">Ingredienti (facoltativo)</div>
@@ -456,7 +483,7 @@ body.nn .fm,body.nn .fp,body.nn .act.a2{display:none}
   <details id="nfRawD" style="display:none;margin-top:10px"><summary>Testo letto dalla foto</summary><pre id="nfRaw" style="white-space:pre-wrap;font-size:12px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px;max-height:200px;overflow:auto"></pre></details>
   <div id="nfV"></div>
   <div id="nfAdd" style="display:none;margin-top:10px"><label class="sub">Quanti grammi ne mangi? <input type="text" inputmode="decimal" id="nf_g" value="100" style="width:90px;font:inherit;font-size:16px;padding:8px 10px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)"> g</label>
-    <div class="row" style="margin-top:10px"><button class="btn sm" id="nfAddMeal">➕ Aggiungi al pasto</button><button class="btn sm ghost" id="nfSaveOnly">💾 Salva</button></div></div>
+    <div class="row" style="margin-top:10px"><button class="btn sm" id="nfAddMeal">➕ Aggiungi al pasto</button><button class="btn sm ghost" id="nfSaveOnly">💾 Salva</button><button class="btn sm sec" id="nfHome" type="button">🏠 Aggiungi in casa</button></div></div>
   <div id="nfMine"></div>
 </div></div>
 <div class="ovl" id="cropO"><div class="sheet" style="max-height:96vh;padding:12px 12px 18px">
@@ -618,8 +645,8 @@ function qg(id,q){return (IBS&&SPQ[id])?SPQ[id]:q}
 var week=store.get('week',null);
 var meal='tutti', onlyOk=false, semF='tutti';
 var DAYS=['Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato','Domenica'];
-var MEALS=[['colazione','Colazione','☕'],['spuntino','Spuntino','🍎'],['pranzo','Pranzo','🍝'],['cena','Cena','🍲']];
-var MEM={colazione:'☕',spuntino:'🍎',pranzo:'🍝',cena:'🍲'};
+var MEALS=[['colazione','Colazione','☕'],['spuntino','Spuntino','🍎'],['pranzo','Pranzo','☀'],['cena','Cena','🌙']];
+var MEM={colazione:'☕',spuntino:'🍎',pranzo:'☀',cena:'🌙'};
 var NUTS=/noce|noci|mandorl|nocciol|pistacch|anacard|pinol|pecan|macadamia|arachid|nocciolin|pesto|nutella|frutta secca/i;
 
 /* ---------- PROFILO PERSONALE (condizioni, allergeni, limiti) ---------- */
@@ -651,8 +678,8 @@ var ALG=[
 {id:'moll',n:'Molluschi',e:'🐚',rx:/mollusc|\bcozz[ae]\b|vongol|calamar|\bseppi|\bpolp|ostric|capesant|lumach|totan|\bclams?\b|mussel|squid|octopus|oyster|scallop/g,off:['molluscs']},
 {id:'soia',n:'Soia',e:'🫘',rx:/\bsoia\b|\bsoya\b|\bsoy\b|\btofu\b|edamame|tempeh|\bmiso\b/g,off:['soybeans']},
 {id:'sedano',n:'Sedano',e:'🌿',rx:/\bsedano\b|\bceleri\b|\bcelery\b|selleria/g,off:['celery']},
-{id:'senape',n:'Senape',e:'🟡',rx:/senape|mustard|moutarde/g,off:['mustard']},
-{id:'sesamo',n:'Sesamo',e:'⚪',rx:/sesamo|sesame|tahin|gomasio/g,off:['sesame-seeds']},
+{id:'senape',n:'Senape',e:'🫙',rx:/senape|mustard|moutarde/g,off:['mustard']},
+{id:'sesamo',n:'Sesamo',e:'🌱',rx:/sesamo|sesame|tahin|gomasio/g,off:['sesame-seeds']},
 {id:'solfiti',n:'Solfiti',e:'🍷',rx:/solfit|anidride solforosa|\bso2\b|\be ?22[0-8]\b|sulphite|sulfite|metabisolfit/g,off:['sulphur-dioxide-and-sulphites']},
 {id:'lupini',n:'Lupini',e:'🌼',rx:/lupin/g,off:['lupin']}
 ];
@@ -1101,7 +1128,7 @@ function stats(r){
 function recByName(n){for(var i=0;i<REC.length;i++){if(REC[i].n===n)return REC[i]}return null}
 
 /* ---------- IN CASA ---------- */
-function renderPantry(){
+function renderPantry(){if(typeof renderFirst==='function')renderFirst();
   var h='';
   CATS.forEach(function(c){
     var items=ING.filter(function(a){return a[2]===c[0]});
@@ -1225,7 +1252,7 @@ function genWeek(){
   week=w;save();renderWeek();
 }
 function renderWeek(){
-  if(!week){$('#weekBox').innerHTML='<div class="card empty">Tocca “Genera settimana” per creare il menu.</div>';$('#shopCard').style.display='none';return}
+  if(!week){$('#weekBox').innerHTML='';$('#shopCard').style.display='none';return}
   var h='';
   week.forEach(function(d,di){
     h+='<div class="day"><h3>'+DAYS[di]+'</h3>';
@@ -1283,6 +1310,7 @@ $('#shop').addEventListener('click',function(e){
 });
 $('#genW').addEventListener('click',genWeek);
 function copy(txt){
+  txt=icoStrip(txt);
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){toast('Copiato')},function(){fb()})}else fb();
   function fb(){var t=document.createElement('textarea');t.value=txt;document.body.appendChild(t);t.select();try{document.execCommand('copy');toast('Copiato')}catch(e){toast('Copia non riuscita')}document.body.removeChild(t)}
 }
@@ -1569,7 +1597,8 @@ function renderCrea(){
   var cur=$('#gForce').value;
   $('#gForce').innerHTML='<option value="">— Qualsiasi alimento —</option>'+gItems().map(function(x){return '<option value="'+esc(x.id)+'">'+esc(cap(x.dn))+'</option>'}).join('');
   $('#gForce').value=cur;if($('#gForce').selectedIndex<0)$('#gForce').value='';
-  $('#favList').innerHTML=fav.length?fav.map(function(r,i){return '<div class="rec" data-fi="'+i+'"><div class="em">'+MEM[r.meal]+'</div><div class="tx"><div class="nm">'+esc(r.n)+'</div><div class="mt">'+r.meal+'</div></div><button class="swap" data-del="'+i+'" title="Rimuovi">✕</button></div>'}).join(''):'<div class="empty">Nessuna ricetta salvata: dopo averne creata una, tocca ⭐ Salva.</div>';
+  $('#favList').innerHTML=fav.length?fav.map(function(r,i){return '<div class="rec" data-fi="'+i+'"><div class="em">'+MEM[r.meal]+'</div><div class="tx"><div class="nm">'+esc(r.n)+'</div><div class="mt">'+r.meal+'</div></div><button class="swap" data-del="'+i+'" title="Rimuovi">✕</button></div>'}).join(''):'';
+  $('#favCard').style.display=fav.length?'block':'none';
 }
 function runGen(){
   var res=genMeal(gm,$('#gForce').value);
@@ -2586,7 +2615,7 @@ function renderNfMine(){
 }
 function openNf(name,ctx){
   NF={tr:[],ctx:ctx||'meal',ok:false,ex:null,bc:null};
-  $('#nf_n').value=name||'';
+  $('#nf_n').value=name||'';$('#nf_cat').value='';$('#nfCatW').style.display='none';
   EF.forEach(function(f){var el=$('#nf_'+f[0]);el.value='';el.classList.remove('auto','bad')});
   $('#nf_ing').value='';$('#nfTr').innerHTML='';$('#nfV').innerHTML='';$('#nfAdd').style.display='none';nfMsg('','');$('#nfRawD').style.display='none';
   $('#nfPhoto').style.display='none';$('#nfSrc').style.display='none';$('#nfSim').value='';$('#nf_g').value='100';
@@ -2628,8 +2657,10 @@ function nfValuta(){
   try{$('#nfV').scrollIntoView({block:'start',behavior:'smooth'})}catch(e){}
 }
 function nfCount(){var v=nfRead();return ['fat','sat','sug','salt','kcal'].filter(function(k){return v[k]!=null}).length}
-function nfSave(toMeal){
+function nfSave(toMeal,toHome){
+  var homeMsg='';
   if(!$('#nf_n').value.trim()){toast('Scrivi il nome per salvarlo');$('#nf_n').focus();return}
+  if(!$('#nf_cat').value){toast('Scegli che tipo di alimento è');$('#nf_cat').focus();return}
   if(!NF.ok){nfValuta();if(!NF.ok)return}
   var v=nfRead(),name=$('#nf_n').value.trim(),t=nfText(),g=Math.max(1,Math.round(parseFloat($('#nf_g').value)||100));
   var o={n:name,cat:$('#nf_cat').value,kcal:v.kcal,fat:v.fat,sat:v.sat,carb:v.carb,sug:v.sug,fib:v.fib,pro:v.pro,salt:v.salt,ing:t.ing,tr:t.tr,dg:g,bc:NF.bc||null,ex:NF.ex||null};
@@ -2637,6 +2668,11 @@ function nfSave(toMeal){
   myFoods=myFoods.filter(function(x){return x.n.toLowerCase()!==k});myFoods.push(o);store.set('myfoods',myFoods);
   loadMine();
   if(cplExtra.indexOf(k)<0)cplExtra.push(k);
+  if(toHome){
+    var uf=FI.filter(function(x){return x.user&&x.n===k})[0];
+    if(uf&&fLevel(uf)==='r')homeMsg='🚫 Non adatto al tuo profilo: salvato, ma non lo metto in casa';
+    else{if(!custom.some(function(c){return c.n.toLowerCase()===k}))custom.push({n:name,c:o.cat});save();renderPantry();homeMsg='🏠 Aggiunto in casa'}
+  }
   $('#nfO').classList.remove('on');
   if(toMeal&&NF.ctx==='meal'){
     $('#mq').value=$('#mq').value.replace(/\s+$/,'')+(($('#mq').value.trim())?'\n':'')+k+' '+g+' g';
@@ -2646,6 +2682,7 @@ function nfSave(toMeal){
     if($('#mq').value.trim().length>=3&&$('#fBoxM').style.display!=='none')mealGo();
     $('#fq').value=name;foodSearch();toast('Alimento salvato');
   }
+  if(toHome&&homeMsg)toast(homeMsg);
 }
 $('#nfX').addEventListener('click',function(){$('#nfO').classList.remove('on')});
 $('#nfO').addEventListener('click',function(e){if(e.target.id==='nfO')$('#nfO').classList.remove('on')});
@@ -2661,7 +2698,7 @@ $('#nfMine').addEventListener('click',function(e){
   cplExtra=cplExtra.filter(function(x){return x!==o.n.toLowerCase()});renderNfMine();toast('Alimento tolto');
 });
 function fromSearch(e){var f=e.target.files[0];e.target.value='';if(!f)return;openNf($('#fq').value.trim(),'search');openCrop(f,'tab',true)}
-$('#fsCam').addEventListener('change',fromSearch);$('#fsGal').addEventListener('change',fromSearch);
+$('#fsGal').addEventListener('change',fromSearch);
 $('#nfCam').addEventListener('change',function(e){var f=e.target.files[0];if(f)openCrop(f,'tab',true);e.target.value=''});
 $('#nfIngCam').addEventListener('change',function(e){var f=e.target.files[0];if(f)openCrop(f,'ing',true);e.target.value=''});
 $('#nfSim').addEventListener('change',function(){
@@ -2712,7 +2749,8 @@ window.addEventListener('error',function(ev){try{if($('#nfO').classList.contains
 function go(v){
   $$('.view').forEach(function(s){s.classList.remove('on')});
   $('#v-'+v).classList.add('on');
-  var nv=v==='sem'?'info':v;
+  var nv=v==='sem'?'info':v==='crea'?'ric':v;
+  document.body.classList.toggle('sub',v!=='casa');
   $$('nav button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===nv)});
   if(v==='crea')renderCrea();
   if(v==='ric')renderRec();
@@ -2962,14 +3000,20 @@ function renderHeader(){
 }
 function setFTab(k){
   $('#fBoxS').style.display=k==='s'?'block':'none';$('#fBoxM').style.display=k==='m'?'block':'none';
-  [].forEach.call($$('.act'),function(b){b.classList.toggle('on',b.getAttribute('data-k')===k)});
 }
-$('#acts').addEventListener('click',function(e){
-  var b=e.target.closest('.act');if(!b)return;
-  var k=b.getAttribute('data-k');
-  if(k==='b'){openBc();return}
-  go('casa');setFTab(k);
-  if(k==='s')setTimeout(function(){try{$('#fq').focus()}catch(x){}},50);
+function renderFirst(){
+  var el=$('#firstStep');if(!el)return;
+  var empty=pantry.size===0&&custom.length===0;
+  el.style.display=empty?'block':'none';
+  if(empty)el.innerHTML='<h2>👋 Primo passo</h2><p class="sub">Segna cosa hai in casa oppure scansiona un prodotto: così posso proporti ricette adatte a te.</p><div class="row"><button class="btn sm" type="button" id="fsPan">🏠 Segna cosa hai</button><button class="btn sm sec" type="button" id="fsScan">📦 Scansiona un prodotto</button></div>';
+}
+document.addEventListener('click',function(e){
+  var t=e.target,b;if(!t.closest)return;
+  if(t.closest('#goMeal')){setFTab('m');return}
+  if(t.closest('#mBack')){setFTab('s');return}
+  if(t.closest('#fqBc')||t.closest('#eBc')||t.closest('#cBc')||t.closest('#fsScan')){openBc();return}
+  if(t.closest('#fsPan')){var pc=$('#pantryCard');if(pc)pc.scrollIntoView({behavior:'smooth',block:'start'});return}
+  if((b=t.closest('[data-go]'))){go(b.getAttribute('data-go'));return}
 });
 $('#hProf').addEventListener('click',function(){openProf(true,1)});
 
@@ -3040,7 +3084,7 @@ document.addEventListener('click',function(e){if(e.target&&e.target.id==='iInst'
 /* ---------- CODICE A BARRE (Open Food Facts) ---------- */
 var BC={stream:null,det:null,timer:0,busy:false,zx:null};
 var OFF='https://world.openfoodfacts.org/api/v2/product/';
-var OFFF='code,product_name,product_name_it,brands,quantity,nutriments,ingredients_text,ingredients_text_it,allergens_tags,traces_tags';
+var OFFF='code,product_name,product_name_it,brands,quantity,nutriments,ingredients_text,ingredients_text_it,allergens_tags,traces_tags,categories_tags';
 function bcMsg(t,err){var el=$('#bcM');el.textContent=t||'';el.style.color=err?'var(--r)':'var(--mut)'}
 function openBc(){
   $('#bcO').classList.add('on');bcMsg('');$('#bcNum').value='';
@@ -3158,10 +3202,33 @@ function bcNotFound(code){
   openNf('','search');NF.bc=code;
   nfMsg('err','Prodotto non trovato nel database (codice '+code+'). Fotografa la tabella nutrizionale e gli ingredienti oppure scrivi i valori a mano: lo ricorderò con questo codice.');
 }
+/* categoria dell'app dalle categorie di Open Food Facts (se incerto: nessuna, poi "Altro") */
+function offCat(tags,name){
+  var t=(tags||[]).join(' ').toLowerCase(),n=(name||'').toLowerCase();
+  function has(rx){return rx.test(t)}
+  if(t){
+    if(has(/en:(meals|snacks|sweet-snacks|salty-snacks|beverages|sodas|waters|sauces|condiments|desserts|chocolates|confectioneries|spreads|biscuits|cakes|pastries|ice-creams|plant-based-beverages|alcoholic-beverages|fruit-juices|jams|candies)\b/))return 'altro';
+    if(has(/en:(legumes|pulses|beans|lentils|chickpeas|peas|legumes-and-their-products)\b/))return 'legume';
+    if(has(/en:(meats|poultries|fishes|seafood|eggs|tunas|cold-cuts|charcuteries|meat-based-products|fishes-and-their-products|tofu|meat-alternatives|hams|sausages)\b/))return 'proteina';
+    if(has(/en:(dairies|milks|yogurts|cheeses|butters|creams|fermented-milk-products|dairy-substitutes)\b/))return 'latticino';
+    if(has(/en:(vegetables|fresh-vegetables|frozen-vegetables|canned-vegetables|vegetables-based-foods|tomatoes|salads|mushrooms)\b/))return 'verdura';
+    if(has(/en:(fruits|fresh-fruits|dried-fruits|frozen-fruits|canned-fruits)\b/))return 'frutta';
+    if(has(/en:(pastas|rices|breads|flours|breakfast-cereals|crackers|breadsticks|cereal-grains|couscous|noodles|semolina|cereals-and-their-products)\b/))return 'cereale';
+  }
+  if(/\b(latte|yogurt|formaggio|mozzarella|ricotta|burro|parmigiano|grana)\b/.test(n))return 'latticino';
+  if(/\b(pasta|riso|pane|farina|fusilli|spaghetti|penne|cereali|fette biscottate)\b/.test(n))return 'cereale';
+  if(/\b(fagioli|lenticchie|ceci|piselli|legumi)\b/.test(n))return 'legume';
+  if(/\b(tonno|salmone|pollo|tacchino|prosciutto|bresaola|uova|merluzzo|manzo|maiale)\b/.test(n))return 'proteina';
+  return '';
+}
 function bcFill(code,p){
   var name=(p.product_name_it||p.product_name||'').trim(),brand=(p.brands||'').split(',')[0].trim();
   openNf(name+(brand&&name.toLowerCase().indexOf(brand.toLowerCase())<0?' '+brand:''),'search');
   NF.bc=code;
+  var oc=offCat(p.categories_tags,name);
+  $('#nf_cat').value=oc||'altro';
+  $('#nfCatW').textContent=oc?'Categoria scelta in automatico dai dati del prodotto: controllala.':'Non riesco a capire il tipo di alimento: ho messo “Altro”. Cambialo se serve.';
+  $('#nfCatW').style.display='block';
   var v=offVals(p.nutriments),n=0;
   EF.forEach(function(f){
     var el=$('#nf_'+f[0]);el.classList.remove('auto','bad');
@@ -3199,7 +3266,130 @@ $('#bcGo').addEventListener('click',function(){bcFound($('#bcNum').value)});
 $('#bcNum').addEventListener('keydown',function(e){if(e.key==='Enter')bcFound(this.value)});
 $('#bcNum').addEventListener('focus',function(){stopCam();$('#bcLive').style.display='none'});
 
+/* ---------- ICONE: sostituiscono le emoji con simboli a linea (nessuna emoji a schermo) ---------- */
+var IC={
+check:'<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.5"/>',
+xc:'<circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/>',
+alert:'<path d="M12 3.5L2.8 19.5h18.4z"/><path d="M12 10v4.5M12 17.3v.1"/>',
+ban:'<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>',
+circle:'<circle cx="12" cy="12" r="8"/>',
+camera:'<path d="M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.6"/>',
+utensils:'<path d="M6 3v5a2 2 0 0 0 4 0V3M8 10v11M16 21V3c-2.2 1.2-3 3.5-3 6.5V13h3"/>',
+plus:'<path d="M12 5v14M5 12h14"/>',
+home:'<path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10"/><path d="M10 20v-6h4v6"/>',
+trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/>',
+sparkle:'<path d="M12 3l2 6 6 3-6 3-2 6-2-6-6-3 6-3z"/>',
+star:'<path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.8l-5.2 2.8 1-5.8L3.5 9.7l5.9-.8z"/>',
+calendar:'<rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
+clipboard:'<rect x="5" y="4.5" width="14" height="17" rx="2"/><rect x="8.5" y="2.5" width="7" height="4" rx="1"/><path d="M9 12h6M9 16h6"/>',
+cart:'<path d="M3 4h3l2.4 11h9.7l2-8H7"/><circle cx="9.5" cy="19.5" r="1.4"/><circle cx="17" cy="19.5" r="1.4"/>',
+traffic:'<rect x="7" y="2.5" width="10" height="19" rx="3"/><circle cx="12" cy="7.5" r="1.4" fill="currentColor"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/><circle cx="12" cy="16.5" r="1.4" fill="currentColor"/>',
+search:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/>',
+tag:'<path d="M3.5 12.2V4.5a1 1 0 0 1 1-1h7.7l8.3 8.3a1.4 1.4 0 0 1 0 2l-6.2 6.2a1.4 1.4 0 0 1-2 0z"/><circle cx="8" cy="8" r="1.3"/>',
+dice:'<rect x="4" y="4" width="16" height="16" rx="3.500"/><circle cx="8.500" cy="8.500" r="1.300" fill="currentColor"/><circle cx="15.500" cy="8.500" r="1.300" fill="currentColor"/><circle cx="12" cy="12" r="1.300" fill="currentColor"/><circle cx="8.500" cy="15.500" r="1.300" fill="currentColor"/><circle cx="15.500" cy="15.500" r="1.300" fill="currentColor"/>',
+user:'<circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c1-4 4-6 7.5-6s6.5 2 7.5 6"/>',
+image:'<rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 18l5-5 4 4 3-3 4.5 4.5"/>',
+bulb:'<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.8.6 1 1.3 1 2.1h5c0-.8.2-1.5 1-2.1A6 6 0 0 0 12 3z"/>',
+scale:'<path d="M12 4v16M6 20h12M4 8h16"/><path d="M4 8L1.8 14h4.4zM20 8l-2.2 6h4.4z"/>',
+pencil:'<path d="M4 20l1.2-4.4L16.6 4.2a2 2 0 0 1 2.8 0l.4.4a2 2 0 0 1 0 2.8L8.4 18.8z"/><path d="M14.5 6.4l3.1 3.1"/>',
+save:'<path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/>',
+heart:'<path d="M12 20s-8-4.7-8-10.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 8 2.5C20 15.3 12 20 12 20z"/>',
+flame:'<path d="M12 3c1 3.5 5.5 5.5 5.5 11a5.5 5.5 0 0 1-11 0c0-2 1-3.3 2-4.3.2 1.5 1 2.3 1.8 2.6C10 9 10.5 5.5 12 3z"/>',
+refresh:'<path d="M20 11a8 8 0 0 0-14.5-3.5L4 9"/><path d="M4 4v5h5"/><path d="M4 13a8 8 0 0 0 14.5 3.5L20 15"/><path d="M20 20v-5h-5"/>',
+dumbbell:'<path d="M6.5 7v10M17.5 7v10M3.5 10v4M20.5 10v4M6.5 12h11"/>',
+scissors:'<circle cx="6" cy="6.5" r="2.5"/><circle cx="6" cy="17.5" r="2.5"/><path d="M8 8l12 9M8 16l12-9"/>',
+ruler:'<path d="M3.5 17.5L17.5 3.5l3 3-14 14z"/><path d="M9 12l2 2M12 9l2 2M6 15l2 2"/>',
+walk:'<circle cx="13" cy="4.5" r="1.8"/><path d="M12 8.5l-3 3.5 3 3 .5 5M12 8.5l3 3h3M9 12l-2.5 3.5"/>',
+down:'<path d="M12 4v16M6 14l6 6 6-6"/>',
+phone:'<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>',
+leaf:'<path d="M5 19C5 10 10 5 20 4c0 10-4 16-11 16-1.5 0-2.8-.4-4-1z"/><path d="M5 19c3-5 6-8 10-10"/>',
+apple:'<path d="M12 7c-2-1.5-6-1-7 3-1 4 1.5 10 4 10 1.2 0 2-.7 3-.7s1.8.7 3 .7c2.5 0 5-6 4-10-1-4-5-4.5-7-3z"/><path d="M12 7c0-2 .8-3.3 2.5-4"/>',
+drumstick:'<path d="M10 14C7.500 9.500 11.500 4 16 4c3.500 0 5.500 2.500 5 5.500-.8 4.500-6 7-11 4.500z"/><path d="M10.500 13.500L6 18"/><circle cx="4.800" cy="16.500" r="1.600"/><circle cx="7.500" cy="19.200" r="1.600"/>',
+wheat:'<path d="M12 21V8"/><path d="M12 8c-2.5 0-4-1.8-4-4 2.5 0 4 1.8 4 4zM12 8c2.5 0 4-1.8 4-4-2.5 0-4 1.8-4 4zM12 14c-2.5 0-4-1.8-4-4 2.5 0 4 1.8 4 4zM12 14c2.5 0 4-1.8 4-4-2.5 0-4 1.8-4 4zM12 20c-2.5 0-4-1.8-4-4 2.5 0 4 1.8 4 4zM12 20c2.5 0 4-1.8 4-4-2.5 0-4 1.8-4 4z"/>',
+milk:'<path d="M6.5 4h11l-1.4 15.5a1.5 1.5 0 0 1-1.5 1.5H9.400a1.500 1.500 0 0 1-1.500-1.500z"/><path d="M7 9h10"/>',
+cup:'<path d="M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5z"/><path d="M16 10h2.5a2 2 0 0 1 0 4H16"/><path d="M8 3.5v2M12 3.5v2"/>',
+bowl:'<path d="M3.5 11h17a8.500 7.500 0 0 1-17 0z"/><path d="M9 4v3M12 3v4M15 4v3"/>',
+pot:'<path d="M4 10h16v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M2 10h2M20 10h2M9 6c0-1 1-1.500 1-3M14 6c0-1 1-1.500 1-3"/>',
+egg:'<path d="M12 3c-3.500 0-6 5.500-6 9.500a6 6 0 0 0 12 0C18 8.500 15.500 3 12 3z"/>',
+fish:'<path d="M3 12c3-5 9-6 13-3l5-3v12l-5-3c-4 3-10 2-13-3z"/><circle cx="8" cy="11" r=".7"/>',
+wine:'<path d="M7 3h10c0 5-1.500 8-5 8S7 8 7 3z"/><path d="M12 11v9M8.5 20h7"/>',
+drop:'<path d="M12 3.500s6 6.500 6 11a6 6 0 0 1-12 0c0-4.500 6-11 6-11z"/>',
+gauge:'<path d="M4 17a8.500 8.500 0 1 1 16 0"/><path d="M12 17l4-5"/><circle cx="12" cy="17" r="1"/>',
+pod:'<path d="M3.500 16.500C4 9 10 4.500 20.500 4c.500 9-4 15.500-11 15.500-3.500 0-6-1.200-6-3z"/><circle cx="8.800" cy="14.200" r="1.700" fill="currentColor"/><circle cx="12.600" cy="11.200" r="1.700" fill="currentColor"/><circle cx="16.200" cy="8.200" r="1.700" fill="currentColor"/>',
+octopus:'<path d="M5.500 11a6.500 6.500 0 0 1 13 0v2c0 1 .8 1.500 1.500 2.500.8 1.200 0 2.500-1.500 2.500M5.500 11v2c0 1-.8 1.500-1.500 2.500-.8 1.200 0 2.500 1.500 2.500M9.500 13.500v5M14.500 13.500v5"/><circle cx="9.500" cy="10" r=".9" fill="currentColor"/><circle cx="14.500" cy="10" r=".9" fill="currentColor"/>',
+crab:'<ellipse cx="12" cy="13.500" rx="6.500" ry="4.500"/><path d="M6 11.500L3.500 7.500M18 11.500l2.500-4M7.500 17l-2.500 3M16.500 17l2.500 3M10 18v2.500M14 18v2.500"/><circle cx="10" cy="12.500" r=".9" fill="currentColor"/><circle cx="14" cy="12.500" r=".9" fill="currentColor"/>',
+barcode:'<path d="M4 7V5.500A1.500 1.500 0 0 1 5.500 4H7M17 4h1.500A1.500 1.500 0 0 1 20 5.500V7M20 17v1.500a1.500 1.500 0 0 1-1.500 1.500H17M7 20H5.500A1.500 1.500 0 0 1 4 18.500V17"/><path d="M8 8.500v7M10.500 8.500v7M13 8.500v7M15 8.500v7M17 8.500v7" stroke-width="1.600"/>',
+intestine:'<path d="M5 6h10a3.500 3.500 0 0 1 0 7H9a3.500 3.500 0 0 0 0 7h10"/>',
+nut:'<path d="M5.500 10.500C5.500 7 8.300 4.500 12 4.500s6.500 2.500 6.500 6z"/><path d="M12 4.500V2.500M8.500 7.500l1 3M12 7v3.500M15.500 7.500l-1 3"/><path d="M6.500 10.500c.3 5.500 2.700 9 5.500 9s5.200-3.500 5.500-9"/>',
+sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2.500V5M12 19v2.500M2.500 12H5M19 12h2.500M5.300 5.300l1.800 1.800M16.900 16.900l1.800 1.800M5.300 18.700l1.800-1.800M16.900 7.100l1.800-1.800"/>',
+moon:'<path d="M20 14.500A8.500 8.500 0 1 1 9.500 4a7 7 0 0 0 10.500 10.500z"/>',
+jar:'<rect x="6" y="7" width="12" height="14" rx="2"/><path d="M7.500 3.500h9V7h-9zM6 12h12"/>'
+};
+var ICMAP={'🌙':'moon','☀':'sun','🚫':'ban','⛔':'ban','📷':'camera','🟡':'alert','⚠':'alert','✅':'check','🟢':'check','👍':'check','🔴':'xc','⚪':'circle',
+'🍽':'utensils','📦':'barcode','➕':'plus','🏠':'home','🗑':'trash','✨':'sparkle','🎉':'sparkle','👋':'sparkle','⭐':'star','📅':'calendar','📋':'clipboard',
+'🛒':'cart','🚦':'traffic','🔎':'search','🔍':'search','🏷':'tag','🎲':'dice','👤':'user','🖼':'image','💡':'bulb','⚖':'scale','📝':'pencil','✍':'pencil','✏':'pencil',
+'💾':'save','🫀':'heart','🔥':'flame','🔄':'refresh','💪':'dumbbell','✂':'scissors','📏':'ruler','🚶':'walk','🦶':'walk','⬇':'down','📲':'phone',
+'🥦':'leaf','🥬':'leaf','🥒':'leaf','🥕':'leaf','🍅':'leaf','🍆':'leaf','🍄':'leaf','🎃':'leaf','🍠':'leaf','🌿':'leaf','🌱':'leaf','🌼':'leaf','🥗':'leaf',
+'🍎':'apple','🍐':'apple','🍊':'apple','🫐':'apple','🥝':'apple',
+'🍗':'drumstick','🦃':'drumstick','🐇':'drumstick','🥚':'egg','🐟':'fish','🍣':'fish','🦐':'crab','🐚':'octopus',
+'🌾':'wheat','🍞':'wheat','🍚':'wheat','🫘':'pod','🫛':'pod','🥜':'nut','🌰':'nut','🥛':'milk','🧀':'milk',
+'☕':'cup','🍵':'cup','🥣':'bowl','🍝':'bowl','🍲':'pot','🍳':'pot','🍷':'wine','🍬':'drop','🧂':'gauge','🌀':'intestine','🥫':'jar','🫙':'jar'};
+var ICK={check:'g',alert:'y',xc:'r',ban:'r'};
+var EMXS='(?:[\\u{1F300}-\\u{1FAFF}\\u2600-\\u2712\\u2714\\u2716\\u2728\\u2733\\u2734\\u2744\\u2747\\u274C\\u274E\\u2753-\\u2755\\u2757\\u2763\\u2764\\u2795-\\u2797\\u27A1\\u27B0\\u27BF\\u2B05-\\u2B07\\u2B1B\\u2B1C\\u2B50\\u2B55\\u2139\\u231A\\u231B\\u23E9-\\u23FA\\u25AA\\u25AB\\u25B6\\u25C0\\u25FB-\\u25FE\\u2705][\\uFE0F\\u200D]*)';
+var EMXG=new RegExp(EMXS+'+','gu');
+function icoEl(name){
+  var s=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  s.setAttribute('viewBox','0 0 24 24');s.setAttribute('class','ic'+(ICK[name]?' k-'+ICK[name]:''));s.setAttribute('aria-hidden','true');
+  s.innerHTML=IC[name];return s;
+}
+function icoStrip(str){
+  return String(str).replace(EMXG,function(m){return Array.from(m.replace(/[️‍]/g,'')).map(function(c){return ICMAP[c]?'':c}).join('')}).replace(/[ \t]{2,}/g,' ').replace(/(^|\n)[ \t]+/g,'$1');
+}
+function icoNode(t){
+  var v=t.nodeValue;if(!v||!EMXG.test(v)){EMXG.lastIndex=0;return}
+  EMXG.lastIndex=0;
+  var p=t.parentNode;if(!p)return;
+  var tag=p.nodeName;
+  if(tag==='SCRIPT'||tag==='STYLE'||tag==='TEXTAREA'||tag==='NOSCRIPT')return;
+  if(tag==='OPTION'){t.nodeValue=icoStrip(v);return}
+  var frag=document.createDocumentFragment(),last=0,m;
+  EMXG.lastIndex=0;
+  while((m=EMXG.exec(v))){
+    if(m.index>last)frag.appendChild(document.createTextNode(v.slice(last,m.index)));
+    Array.from(m[0].replace(/[️‍]/g,'')).forEach(function(c){
+      if(ICMAP[c])frag.appendChild(icoEl(ICMAP[c]));else frag.appendChild(document.createTextNode(c));
+    });
+    last=m.index+m[0].length;
+  }
+  if(last<v.length)frag.appendChild(document.createTextNode(v.slice(last)));
+  p.replaceChild(frag,t);
+}
+function icoAttrs(el){
+  ['placeholder','title','aria-label'].forEach(function(a){var x=el.getAttribute&&el.getAttribute(a);if(x&&EMXG.test(x)){el.setAttribute(a,icoStrip(x))}EMXG.lastIndex=0});
+}
+function icoRun(root){
+  if(!root)return;
+  if(root.nodeType===3){icoNode(root);return}
+  if(root.nodeType!==1&&root.nodeType!==11)return;
+  if(root.nodeType===1&&root.classList&&root.classList.contains('ic'))return;
+  var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),a=[],n;
+  while((n=w.nextNode()))a.push(n);
+  a.forEach(icoNode);
+  if(root.querySelectorAll){icoAttrs(root);[].forEach.call(root.querySelectorAll('[placeholder],[title],[aria-label]'),icoAttrs)}
+}
+var icoBusy=false,icoObs=new MutationObserver(function(ms){
+  if(icoBusy)return;icoBusy=true;icoObs.disconnect();
+  try{ms.forEach(function(m){
+    if(m.type==='characterData')icoRun(m.target);
+    else m.addedNodes.forEach(function(n){icoRun(n)});
+  })}finally{icoObs.observe(document.body,{childList:true,subtree:true,characterData:true});icoBusy=false}
+});
+icoRun(document.body);
+icoObs.observe(document.body,{childList:true,subtree:true,characterData:true});
+
 $('#nfBc').addEventListener('click',function(){$('#nfO').classList.remove('on');openBc()});
+$('#nfHome').addEventListener('click',function(){nfSave(false,true)});
+$('#nf_cat').addEventListener('change',function(){$('#nfCatW').style.display='none'});
 tagFoods();applyProfile();renderHeader();renderInfo();
 renderPantry();renderRec();renderSem();renderCrea();renderFields();renderIng();
 renderWeek();
