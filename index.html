@@ -676,9 +676,7 @@ var CONDS=[
 ['ibs','Colon irritabile','🌀','fibre e FODMAP con cautela'],
 ['gerd','Reflusso o gastrite','🔥','niente fritti, acidi, piccante'],
 ['gout','Gotta o acido urico alto','🦶','meno carni rosse, frattaglie, alcol'],
-['celi','Celiachia','🌾','glutine sempre escluso'],
-['veg','Vegetariano','🥬','niente carne e pesce'],
-['vgn','Vegano','🌱','niente carne, pesce, latticini, uova, miele']
+['celi','Celiachia','🌾','glutine sempre escluso']
 ];
 var CONDS2=[['dm1','Diabete di tipo 1 (insulina)'],['ren','Insufficienza renale'],['cir','Cirrosi o epatopatie avanzate'],['pre','Gravidanza o allattamento'],['eat','Disturbi alimentari'],['pku','Fenilchetonuria'],['onc','Chemioterapia o oncologia'],['bar','Chirurgia bariatrica']];
 /* allergeni: id, nome, emoji, regex su testo normalizzato (ingredienti/etichette), regex per intolleranza, parole fuzzy */
@@ -731,15 +729,22 @@ var GUT=/gonfi|diarrea|\bgas\b|irrit|fruttan|mannitol|sorbitol|lattosio|stimol|f
 var GERD=/fritto|fritti|fritture|tempura|impanat|cotolett|pomodor|agrum|arancia|limone|pompelmo|ananas|cioccolat|caff|menta|alcol|vino|birra|aperitivo|spritz|amaro|liquor|cocktail|aglio|cipoll|piccante|peperoncino|cola\b|bibit|salame|salsiccia|wurstel|pancetta|panna|burro|maionese|patatine/;
 var GOUTR=/manzo|bistecca|vitello|maiale|lonza|arrosto|carne rossa|selvaggina|fegato|frattagli|salame|prosciutto|bresaola|mortadella|salsiccia|wurstel|acciughe|sardine|sgombro|aringa|gamberi|calamari|polpo|cozze|vongole|birra|vino|alcol|aperitivo|spritz|amaro|liquor|cocktail|superalcolici/;
 var GOUTH=/birra|alcol|superalcolici|fegato|frattagli|aperitivo|spritz|amaro|liquor|cocktail/;
-var MEATRX=/carne|pollo|tacchino|coniglio|manzo|vitello|maiale|prosciutto|salame|mortadella|salsiccia|wurstel|bresaola|pancetta|speck|lardo|strutto|gelatina|brodo di carne|\bpesce\b|tonno|salmone|sgombr|sardin|acciug|merluzz|orata|branzin|sogliola|gamber|calamar|polp|cozz|vongol|surimi|\bfish\b|chicken|\bbeef\b|\bpork\b|\bham\b/;
+var MEATRX=/carne|pollo|tacchino|coniglio|manzo|vitello|maiale|prosciutto|salame|mortadella|salsiccia|wurstel|bresaola|pancetta|speck|lardo|strutto|gelatina|brodo di carne|\bpesce\b|tonno|salmone|sgombr|sardin|acciug|merluzz|orata|branzin|sogliol|gamber|calamar|polp|cozz|vongol|surimi|\bfish\b|chicken|\bbeef\b|\bpork\b|\bham\b/;
 var ANIMRX=/\blatte\b|lattosio|burro|formagg|yogurt|\bpanna\b|\buova\b|\buovo\b|albume|tuorlo|\bmiele\b|siero di latte|caseina|mascarpone|ricotta|mozzarella|parmigian|\bmilk\b|cheese|butter|\begg\b|\bhoney\b|gelato/;
+var FISHRX=/\bpesce\b|tonno|salmone|sgombr|sardin|acciug|alici|merluzz|baccal|stoccafisso|orata|branzin|spigola|sogliol|platessa|nasello|trota|cernia|dentice|rombo|halibut|aringa|anguilla|palombo|pesce spada|gamber|scamp|aragost|astice|granch|crostace|molluschi|frutti di mare|calamar|seppi|totan|\bpolpo\b|\bpolpi\b|cozz|vongol|ostric|capesant|surimi|\bfish\b|\bsalmon\b|\btuna\b|\bshrimp\b/;
+var MEATONLY=new RegExp(MEATRX.source.split('|').filter(function(t){return !/pesce|tonno|salmone|sgombr|sardin|acciug|merluzz|orata|branzin|sogliol|gamber|calamar|polp|cozz|vongol|surimi|fish/.test(t)}).join('|')+'|polpett|hamburger|cotolett|bistecca|prosciutto|lonza|arrosto|fettina');
+function noMeat(){return !(PROF.eat&&PROF.eat.c)}
+function noFish(){return !(PROF.eat&&PROF.eat.p)}
+function noAnim(){return !(PROF.eat&&PROF.eat.a)}
+function meatBlocked(n){return (noMeat()&&MEATONLY.test(n))||(noFish()&&FISHRX.test(n))}
+function eatTxt(P){var o=[];if(P.eat.c)o.push('carne');if(P.eat.p)o.push('pesce');if(P.eat.a)o.push('uova e latticini');return o.length===3?'':(o.length?'Mangi: '+o.join(', '):'Solo alimenti vegetali')}
 
 var STOPTK={sgocciolato:1,sgocciolata:1,sgocciola:1,sgocciolare:1,sgocciolati:1};
 var PV=1; /* versione del profilo: invalida le cache */
 var PROF=null,LIMA={},LIMF={},KHI=450,DIETX=[];
 function blankCond(){var o={};CONDS.forEach(function(c){o[c[0]]=false});return o}
 function newProf(legacy){
-  var p={ver:1,name:'',age:0,sex:'M',w:0,h:0,goal:'keep',cond:blankCond(),alg:{},extra:[],lim:{},pro:null,two:[],ack:false,done:false};
+  var p={ver:1,name:'',age:0,sex:'M',w:0,h:0,goal:'keep',cond:blankCond(),eat:{c:true,p:true,a:true},alg:{},extra:[],lim:{},pro:null,two:[],ack:false,done:false};
   if(legacy){p.goal='lose';p.cond.col=p.cond.gly=p.cond.liv=p.cond.pan=true;p.cond.ibs=legacy.ibs!==false;p.alg.guscio='a';p.alg.arachidi='a'}
   return p;
 }
@@ -748,11 +753,16 @@ function hasLegacy(){
     if(l!==null||(pn&&pn.length)||(mf&&mf.length))return {ibs:l===null?true:l}}catch(e){}
   return null;
 }
+function migEat(p){
+  if(!p.eat){var v=!!(p.cond&&(p.cond.veg||p.cond.vgn)),g=!!(p.cond&&p.cond.vgn);p.eat={c:!v,p:!v,a:!g}}
+  if(p.cond){delete p.cond.veg;delete p.cond.vgn}
+}
 function loadProf(){
   var p=store.get('prof',null);
   if(!p||!p.cond){var lg=hasLegacy();p=newProf(lg);p.legacy=!!lg}
   var b=blankCond();Object.keys(b).forEach(function(k){if(p.cond[k]===undefined)p.cond[k]=false});
   p.alg=p.alg||{};p.extra=p.extra||[];p.lim=p.lim||{};p.two=p.two||[];
+  migEat(p);
   PROF=p;
 }
 function saveProf(){store.set('prof',PROF)}
@@ -916,8 +926,8 @@ function ingBlocked(id){
     if(L==='i'&&(t[0]!=='latte'||lac))return 'intolleranza';
   }
   if(x){
-    if((PROF.cond.veg||PROF.cond.vgn)&&(x.c==='pesce'||x.c==='carni'))return 'dieta';
-    if(PROF.cond.vgn&&(x.c==='latticini'))return 'dieta';
+    if((noMeat()&&x.c==='carni')||(noFish()&&x.c==='pesce'))return 'dieta';
+    if(noAnim()&&x.c==='latticini')return 'dieta';
     var nm=norm(x.n+' '+id.replace(/_/g,' ')),ex=exclRx(),j;
     for(j=0;j<ex.length;j++)if(nm.indexOf(ex[j])>-1)return 'escluso';
   }
@@ -1035,10 +1045,15 @@ function calcFood(f){
   var ex=exclRx(),nm=f.al.join(' ');
   ex.forEach(function(x){if(nm.indexOf(x)>-1)add('r','Lo hai escluso tu')});
   /* alimentazione */
-  if(C.veg||C.vgn){
-    if(f.cat==='prot'||f.cat==='protf'){if(!/uova|uovo|frittata|albume|tofu|omelette/.test(nm)||C.vgn&&/uova|uovo|frittata|albume|omelette/.test(nm))add('r','Non rientra nella tua alimentazione')}
-    if(/salame|prosciutto|bresaola|mortadella|salsiccia|wurstel|pancetta|speck|lardo|strutto|fritto|cotolett/.test(nm)&&/salame|prosciutto|bresaola|mortadella|salsiccia|wurstel|pancetta|speck|lardo|strutto|cotolett/.test(nm))add('r','Non rientra nella tua alimentazione');
-    if(C.vgn&&(f.cat==='dairy'||/miele|uova|uovo|frittata|burro|panna|gelato|formagg/.test(nm)))add('r','Non rientra nella tua alimentazione');
+  if(noMeat()||noFish()||noAnim()){
+    var egg=/uova|uovo|frittata|albume|omelette/.test(nm),tofu=/tofu/.test(nm),bad=false;
+    if(f.cat==='prot'||f.cat==='protf'){
+      if(egg){if(noAnim())bad=true}
+      else if(!tofu){if(FISHRX.test(nm)){if(noFish())bad=true}else if(noMeat())bad=true}
+    }
+    if(meatBlocked(nm))bad=true;
+    if(noAnim()&&(f.cat==='dairy'||/miele|uova|uovo|frittata|burro|panna|gelato|formagg/.test(nm)))bad=true;
+    if(bad)add('r','Non rientra nella tua alimentazione');
   }
   if(lv==='r'||pro==='view'){
     if(pro==='view')return {l:lv==='g'?'n':lv,why:why};
@@ -2584,8 +2599,8 @@ var CCMAP={verdura:'verdura',proteina:'proteina',cereale:'cereale',legume:'legum
 var myFoods=store.get('myfoods',[]),NF={tr:[],ctx:'meal',ok:false};
 function dietWarn(n,warnR,warnY){
   var C=PROF.cond,ex=exclRx(),i;
-  if(C.veg||C.vgn){if(MEATRX.test(n))warnR.push('ingredienti di origine animale (non rientra nella tua alimentazione)')}
-  if(C.vgn&&ANIMRX.test(n))warnR.push('latticini, uova o miele (non rientra nella tua alimentazione)');
+  if(meatBlocked(n))warnR.push('carne o pesce che hai escluso (non rientra nella tua alimentazione)');
+  if(noAnim()&&ANIMRX.test(n))warnR.push('latticini, uova o miele (non rientra nella tua alimentazione)');
   for(i=0;i<ex.length;i++)if(n.indexOf(ex[i])>-1){warnR.push('«'+ex[i]+'» (lo hai escluso tu)');break}
   if(C.gerd&&!PROF.pro&&/caffe|cacao|cioccolat|menta|pomodor|agrum|limone|aceto|piccante|peperoncino|alcol|vino|birra/.test(n))warnY.push('ingredienti che possono peggiorare il reflusso');
 }
@@ -2856,6 +2871,13 @@ function wS2(){
   CONDS.forEach(function(c){
     h+='<div class="tg2"><div>'+c[2]+' '+c[1]+'<small>'+c[3]+'</small></div><button class="sw2'+(W.cond[c[0]]?' on':'')+'" data-c="'+c[0]+'" aria-label="'+esc(c[1])+'"></button></div>';
   });
+  h+='</div><div class="card"><b>Cosa mangi?</b><div class="pwn" style="margin-top:4px">Spegni i gruppi che non mangi: l\'app li esclude da ricette, dispensa, menu e giudizi.</div><div class="chips" style="margin:8px 0">';
+  var ea=W.eat.c&&W.eat.p&&W.eat.a,ev=!W.eat.c&&!W.eat.p&&W.eat.a,eg=!W.eat.c&&!W.eat.p&&!W.eat.a;
+  [['all','Onnivoro',ea],['veg','Vegetariano',ev],['vgn','Vegano',eg]].forEach(function(o){h+='<button type="button" class="chip'+(o[2]?' on':'')+'" data-eatp="'+o[0]+'">'+o[1]+'</button>'});
+  h+='</div>';
+  [['c','Carne','pollo, tacchino, manzo, coniglio'],['p','Pesce','merluzzo, salmone, tonno, sogliola, crostacei e molluschi'],['a','Uova e latticini','uova, yogurt, ricotta, latte, miele']].forEach(function(o){
+    h+='<div class="tg2"><div>'+o[1]+'<small>'+o[2]+'</small></div><button class="sw2'+(W.eat[o[0]]?' on':'')+'" data-eat="'+o[0]+'" aria-label="'+o[1]+'"></button></div>';
+  });
   h+='</div><div class="card" style="background:var(--yl);box-shadow:none"><b>Hai altro?</b><div class="pwn" style="margin-top:4px">Diabete di tipo 1, reni, gravidanza, disturbi alimentari…</div>';
   CONDS2.forEach(function(c){
     h+='<div class="tg2"><div>'+c[1]+'</div><button class="sw2'+(W.two.indexOf(c[0])>-1?' on':'')+'" data-c2="'+c[0]+'" aria-label="'+esc(c[1])+'"></button></div>';
@@ -2986,11 +3008,11 @@ $('#profO').addEventListener('click',function(e){
   if((b=t.closest('#w_sex button'))){wReadS1();W.sex=b.getAttribute('data-v');renderW();return}
   if((b=t.closest('[data-c]'))){
     var c=b.getAttribute('data-c');W.cond[c]=!W.cond[c];
-    if(c==='vgn'&&W.cond.vgn)W.cond.veg=true;
-    if(c==='veg'&&!W.cond.veg)W.cond.vgn=false;
     if(c==='celi'&&W.cond.celi)W.alg.glu='a';
     renderW();return
   }
+  if((b=t.closest('[data-eat]'))){var ek=b.getAttribute('data-eat');W.eat[ek]=!W.eat[ek];renderW();return}
+  if((b=t.closest('[data-eatp]'))){var ep=b.getAttribute('data-eatp');W.eat={c:ep==='all',p:ep==='all',a:ep!=='vgn'};renderW();return}
   if((b=t.closest('[data-c2]'))){
     var c2=b.getAttribute('data-c2'),i=W.two.indexOf(c2);
     if(i>-1)W.two.splice(i,1);else W.two.push(c2);
@@ -3061,6 +3083,7 @@ function renderInfo(){
   h+='<div class="card"><h2>👤 Il tuo profilo</h2><p class="sub">'+(PROF.name?esc(PROF.name)+' · ':'')+PROF.age+' anni · '+PROF.w+' kg · '+PROF.h+' cm · '+bmiTxtOf()+'</p>';
   var act=CONDS.filter(function(c){return C[c[0]]});
   h+='<div class="chips" style="margin-bottom:8px">'+(act.length?act.map(function(c){return '<span class="chip on">'+c[2]+' '+esc(c[1])+'</span>'}).join(''):'<span class="sub">Nessuna condizione attiva.</span>')+'</div>';
+  var et=eatTxt(PROF);if(et)h+='<div class="chips" style="margin-bottom:8px"><span class="chip on">'+esc(et)+'</span></div>';
   var al=algList();
   if(al.length)h+='<div class="chips" style="margin-bottom:8px">'+al.map(function(a){return '<span class="chip" style="border-color:'+(algLevel(a.id)==='a'?'var(--r)':'#e0a000')+'">'+a.e+' '+a.n+' · '+(algLevel(a.id)==='a'?'allergia':'intolleranza')+'</span>'}).join('')+'</div>';
   if(PROF.extra.length)h+='<div class="sub">Esclusi da te: '+PROF.extra.map(esc).join(', ')+'</div>';
@@ -3077,9 +3100,9 @@ function renderInfo(){
     gerd:'<li><b>Reflusso:</b> evita fritti, agrumi, pomodoro crudo, cioccolato, menta, caffè e alcol; cena leggera e non coricarti subito.</li>',
     gout:'<li><b>Gotta:</b> limita carni rosse, frattaglie, pesce azzurro, crostacei e alcol (birra in particolare); molta acqua.</li>',
     celi:'<li><b>Celiachia:</b> glutine escluso sempre; controlla anche le tracce. L\'avena è a rischio di contaminazione.</li>',
-    veg:'<li><b>Vegetariano/vegano:</b> controlla vitamina B12, ferro e proteine con il tuo medico o dietista.</li>'
+    veg:'<li><b>Alimentazione senza alcuni gruppi:</b> controlla proteine, ferro, calcio e, se escludi tutto ciò che è animale, vitamina B12 con il tuo medico o dietista.</li>'
   };
-  var li=[];Object.keys(notes).forEach(function(k){if(C[k]||(k==='veg'&&C.vgn))li.push(notes[k])});
+  var li=[];Object.keys(notes).forEach(function(k){if(C[k]||(k==='veg'&&eatTxt(PROF)))li.push(notes[k])});
   if(li.length)h+='<div class="card"><h2>📋 Indicazioni per te</h2><ul style="margin:6px 0 0;padding-left:20px;font-size:14.5px">'+li.join('')+'</ul></div>';
   var LIMEFF=limEff(PROF,isPro());
   h+='<div class="card"><h2>⚖️ I tuoi limiti giornalieri</h2><table><tr><th>Valore</th><th>Limite</th></tr>'+['k','f','s','c','su','fi','p','sa'].map(function(k){return '<tr><td>'+LIMN[k]+(PROF.lim[k]!=null?' <small>(tuo)</small>':(LIMEFF.adapt[k]?' <small>(adattato)</small>':''))+'</td><td>'+String(DAY[k]).replace('.',',')+' '+LIMU[k]+'</td></tr>'}).join('')+'</table></div>';
@@ -3110,8 +3133,8 @@ function customBlock(v){
   var n=norm(s);
   if(IBS&&AVRX.test(s))return 'ibs';
   var ex=exclRx(),i;for(i=0;i<ex.length;i++)if(n.indexOf(ex[i])>-1)return 'escluso';
-  if((PROF.cond.veg||PROF.cond.vgn)&&MEATRX.test(n))return 'dieta';
-  if(PROF.cond.vgn&&ANIMRX.test(n))return 'dieta';
+  if(meatBlocked(n))return 'dieta';
+  if(noAnim()&&ANIMRX.test(n))return 'dieta';
   return '';
 }
 function customWhy(r){return {allergia:'🚫 Evitato per la tua allergia',intolleranza:'🚫 Evitato per la tua intolleranza',ibs:'🚫 Evitato per il colon irritabile (gonfiore)',escluso:'🚫 Lo hai escluso tu',dieta:'🚫 Non rientra nella tua alimentazione'}[r]||'🚫 Non adatto'}
