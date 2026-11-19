@@ -1,5 +1,5 @@
 /* Pappa Pronta - service worker. Cambia VERSION a ogni aggiornamento dell'app. */
-var VERSION='pp-v8';
+var VERSION='pp-v9';
 var CORE=['./','index.html','manifest.webmanifest','icon-180.png','icon-192.png','icon-512.png'];
 self.addEventListener('install',function(e){
   e.waitUntil(caches.open(VERSION).then(function(c){return c.addAll(CORE)}).then(function(){return self.skipWaiting()}));
